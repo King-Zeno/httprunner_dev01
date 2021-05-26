@@ -1,0 +1,24 @@
+# 指定当前用例的名称
+name: "登录接口-正向用例"
+base_url: 'http://ems.test.woapi.net:8077'
+# 指定接口的请求信息
+request:
+    # 指定当前用例的url
+   url: '/manager/login'
+    # 指定当前接口的请求方式
+   method: POST
+    # 指定请求头参数
+   headers:
+      Content-Type: "application/json"
+
+    # 指定json请求参数
+   json:
+      #角色登录
+      mobile: '15011885904'
+      identifier: '123456'
+
+
+# 指定断言信息
+validate:
+   - eq: ["status_code", 200]
+   - eq: ["json.code", 12000]

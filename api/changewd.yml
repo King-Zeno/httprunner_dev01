@@ -1,0 +1,24 @@
+# 指定当前用例的名称
+name: "我的-profile"
+base_url: 'http://ems.test.woapi.net:8077'
+# 指定接口的请求信息
+request:
+    # 指定当前用例的url
+   url: '/manager/user/profile/password'
+    # 指定当前接口的请求方式
+   method: PUT
+    # 指定请求头参数
+   headers:
+      Content-Type: "application/json"
+      Authorization: Baerer $token
+
+    # 指定json请求参数
+   json:
+      oldPassword: "123456"
+      newPassword: "123456"
+      newPasswordConfirm: "123456"
+
+# 指定断言信息
+validate:
+   - eq: ["status_code", 200]
+   - eq: ["json.code", 12000]

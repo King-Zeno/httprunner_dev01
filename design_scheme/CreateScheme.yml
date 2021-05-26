@@ -1,0 +1,38 @@
+# 指定当前用例的名称
+name: "我的-profile"
+base_url: 'http://ems.test.woapi.net:8077'
+# 指定接口的请求信息
+request:
+    # 指定当前用例的url
+   url: '/manager/design-scheme'
+    # 指定当前接口的请求方式
+   method: POST
+    # 指定请求头参数
+   headers:
+      Content-Type: "application/json"
+      Authorization: Baerer $token
+
+    # 指定json请求参数
+   json:
+      proAddress: "石岐区"
+      clientId: 108
+      house: {
+               houseType: 5
+               area: 80
+               city: [
+                     1101,
+                     110101
+                     ]
+               address: "起湾道"
+               houses: 1
+               roomType: 7
+               contractStartDate: "2021-07-15"
+               contractEndDate: "2021-08-15"
+               contractDays: 30
+               }
+      designerId: 9
+
+# 指定断言信息
+validate:
+   - eq: ["status_code", 200]
+   - eq: ["json.code", 12000]

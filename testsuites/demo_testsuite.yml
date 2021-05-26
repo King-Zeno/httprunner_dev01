@@ -1,0 +1,31 @@
+
+config:
+    name: "demo testsuite"
+    variables:
+        device_sn: "XYZ"
+    base_url: "http://127.0.0.1:5000"
+
+testcases:
+-
+    name: call demo_testcase with data 1
+    testcase: testcases/login_test.yml
+
+    parameters:
+        # - 参数1-参数2-参数3-...:
+        - title-username-password-status_code-msg:
+              # 这里的值与上面的参数一一对应
+              - ["正常登录", "1380013800", "alw_2016", 200, "token"]
+              - ["密码错误", "1380013800", "123457", 400, "non_field_errors"]
+              - ["账号错误", "aaron188", "alw_2016", 400, "non_field_errors"]
+              - ["用户名为空", "", "123456", 400, "username"]
+              - ["密码为空", "aaron123", "", 400, "password"]
+
+        #        - title-username-password-status_code-msg: ${P(data/data.csv)}
+        - title-username-password-status_code-msg: ${get_accounts()}
+    variables:
+        device_sn: $device_sn
+-
+    name: call demo_testcase with data 2
+    testcase: path/to/login_test.yml
+    variables:
+        device_sn: $device_sn
