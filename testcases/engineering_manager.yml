@@ -1,0 +1,35 @@
+config:
+    name: "工程管理"
+    output:
+        - token
+    variables:
+        device_sn: "ABC"
+        username: ${ENV(USERNAME)}
+        password: ${ENV(PASSWORD)}
+    base_url: 'http://ems.test.woapi.net:8077'
+
+teststeps:
+-
+    name: 登录
+    api: api/login.yml
+
+    extract:
+    -   token: content.data.token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 我的-profile
+    api: api/myprofile.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 我的-更改密码
+    api: api/changewd.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+
+

@@ -1,5 +1,5 @@
 # 指定当前用例的名称
-name: "我的-profile"
+name: "设计管理-设计方案-创建"
 base_url: 'http://ems.test.woapi.net:8077'
 # 指定接口的请求信息
 request:

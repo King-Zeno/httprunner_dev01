@@ -1,22 +1,20 @@
 # 指定当前用例的名称
-name: "我的-profile"
+name: "设计管理-水电设计-详情"
+variables:
+  taskId: 3
 base_url: 'http://ems.test.woapi.net:8077'
 # 指定接口的请求信息
 request:
     # 指定当前用例的url
-   url: /manager/user/profile/password
+   url: /manager/water-electricity/$taskId
     # 指定当前接口的请求方式
-   method: PUT
+   method: GET
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
+      #Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1dWNzIiwic3ViIjoidG9rZW4iLCJ1aWQiOjEwMywiaWF0IjoxNjA4NzkyMDc0LCJleHAiOjIwMDg4Nzg0NzQsImp0aSI6ImFkZmJzYWRmZHNhZ2doZ2g9PT0ifQ.zU6FMhqPfP_22tGiwLSid0EjqkX703mzuRPQe6goWeo"
       Authorization: Baerer $token
 
-    # 指定json请求参数
-   json:
-      oldPassword: "123456"
-      newPassword: "123456"
-      newPasswordConfirm: "123456"
 
 # 指定断言信息
 validate:
