@@ -2,7 +2,7 @@
 name: "工程管理-工程收款-创建"
 variables:
   id : 3
-base_url: 'http://ems.test.woapi.net:8077'
+base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
     # 指定当前用例的url

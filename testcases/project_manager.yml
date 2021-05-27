@@ -1,0 +1,56 @@
+config:
+    name: "项目经理登录"
+    output:
+        - token
+        - code
+    variables:
+        device_sn: "ABC"
+        username: ${ENV(USERNAME_MANAGER)}
+        password: ${ENV(PASSWORD_MANAGER)}
+    base_url: ${ENV(base_url)}
+
+teststeps:
+-
+    name: "获取验证码"
+    api: project_manager/loginsms.yml
+    extract:
+      - code: content.data
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "手机登录"
+    api: project_manager/mobile_login.yml
+    variables:
+        code: $code
+    extract:
+      - token: content.data.token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "我的详情"
+    api: project_manager/myinformation.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "我的评价"
+    api: project_manager/myevaluation.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "我的工程"
+    api: project_manager/myproject.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "我的资料"
+    api: project_manager/myprofile.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]

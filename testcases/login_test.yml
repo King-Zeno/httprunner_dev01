@@ -6,7 +6,7 @@ config:
         device_sn: "ABC"
         username: ${ENV(USERNAME)}
         password: ${ENV(PASSWORD)}
-    base_url: 'http://ems.test.woapi.net:8077'
+    base_url: ${ENV(base_url)}
 
 teststeps:
 -

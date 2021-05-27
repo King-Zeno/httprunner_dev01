@@ -4,8 +4,8 @@ config:
         - token
     variables:
         device_sn: "ABC"
-        username: ${ENV(USERNAME)}
-        password: ${ENV(PASSWORD)}
+        username: ${ENV(USERNAME_DESIGNER)}
+        password: ${ENV(PASSWORD_DESIGNER)}
     base_url: 'http://ems.test.woapi.net:8077'
 
 teststeps:
@@ -47,7 +47,7 @@ teststeps:
         - eq: ["status_code", 200]
 -
     name: 设计管理-设计方案-交接工程单
-    api: design_scheme/design_case_list.yml
+    api: design_scheme/handover_case.yml
     variables:
         token: $token
     validate:

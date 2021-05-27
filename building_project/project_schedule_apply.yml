@@ -1,0 +1,33 @@
+# 指定当前用例的名称
+name: "工程详情 - 施工进度 - 详情 - 审批申请 ( 提交 )"
+variables:
+   id: 1
+   sid: 1
+base_url: ${ENV(base_url)}
+# 指定接口的请求信息
+request:
+    # 指定当前用例的url
+   url: /worker/project/$id/schedule/$sid/apply
+    # 指定当前接口的请求方式
+   method: POST
+    # 指定请求头参数
+   headers:
+      Content-Type: "application/json"
+      Authorization: Baerer $token
+   json:
+      type: delay #delay,auxiliaryMaterial,mainMaterial,resume,pause
+      desc: sint laboris aliquip cillum ad
+      attachment:
+         - in aliquip
+         - sed in tempor et esse
+         - amet occaecat est
+         - ea mollit anim voluptate nulla
+      content:
+         - - qui dolore irure dolore
+           - Excepteur qui sed aliquip
+         - - dolor fugiat
+
+# 指定断言信息
+validate:
+   - eq: ["status_code", 200]
+   - eq: ["json.code", 12000]

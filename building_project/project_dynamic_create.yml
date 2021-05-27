@@ -1,0 +1,38 @@
+# 指定当前用例的名称
+name: "工程详情 - 工程动态 - 发表日志"
+variables:
+   id: 1
+base_url: ${ENV(base_url)}
+# 指定接口的请求信息
+request:
+    # 指定当前用例的url
+   url: /worker/project/$id/dynamic/create
+    # 指定当前接口的请求方式
+   method: POST
+    # 指定请求头参数
+   headers:
+      Content-Type: "application/json"
+      Authorization: Baerer $token
+   json:
+      weather: 晴朗
+      content:
+         items:
+            - title: 材料进场情况
+              content: 装完水电了欢迎您宝贵意见。祝您生活愉快！装完水电了欢迎您宝贵意见。祝您生活愉快！
+            - title: 施工进度
+              content: 装完地砖了欢迎您宝贵意见。祝您生活愉快！装完水电了欢迎您宝贵意见。祝您生活愉快！
+            - title: 施工进度
+              content: 装完水电了欢迎您宝贵意见。祝您生活愉快！装完水电了欢迎您宝贵意见。祝您生活愉快！
+            - title: 施工进度
+              content: 装完水电了欢迎您宝贵意见。祝您生活愉快！装完水电了欢迎您宝贵意见。祝您生活愉快！
+         images:
+            - url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+              name: 安乐窝 Logo
+            - url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+              name: 安乐窝 Logo
+         WorkerNumber: 7
+
+# 指定断言信息
+validate:
+   - eq: ["status_code", 200]
+   - eq: ["json.code", 12000]

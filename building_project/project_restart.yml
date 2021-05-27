@@ -1,0 +1,20 @@
+# 指定当前用例的名称
+name: "工程详情 - 复工申请"
+variables:
+   id: 1
+base_url: ${ENV(base_url)}
+# 指定接口的请求信息
+request:
+    # 指定当前用例的url
+   url: /worker/project/$id/restart
+    # 指定当前接口的请求方式
+   method: POST
+    # 指定请求头参数
+   headers:
+      Content-Type: "application/json"
+      Authorization: Baerer $token
+
+# 指定断言信息
+validate:
+   - eq: ["status_code", 200]
+   - eq: ["json.code", 12000]

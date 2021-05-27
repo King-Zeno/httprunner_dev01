@@ -11,7 +11,7 @@ config:
 teststeps:
 -
     name: 工程部经理登录
-    api: api/login.yml
+    api: engineering_management/login.yml
 
     extract:
     -   token: content.data.token
