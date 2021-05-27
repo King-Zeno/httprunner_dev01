@@ -1,0 +1,30 @@
+# 指定当前用例的名称
+name: "工程详情 - 工程收款单 - 上传收款记录"
+variables:
+   id: 1
+   wid: 1
+base_url: ${ENV(base_url)}
+# 指定接口的请求信息
+request:
+    # 指定当前用例的url
+   url: /worker/project/$id/schedule-payment
+    # 指定当前接口的请求方式
+   method: POST
+    # 指定请求头参数
+   headers:
+      Content-Type: "application/json"
+      Authorization: Baerer $token
+   json:
+      projectScheduleId: 1
+      money: 654.09
+      attachment:
+         - {}
+         - {}
+      remark: dolore sed minim
+      payee: fugiat Duis magna sunt velit
+      receiptDate: '2021-10-16'
+
+# 指定断言信息
+validate:
+   - eq: ["status_code", 200]
+   - eq: ["json.code", 12000]
