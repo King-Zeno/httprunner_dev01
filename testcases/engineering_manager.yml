@@ -10,7 +10,7 @@ config:
 
 teststeps:
 -
-    name: 登录
+    name: 工程部经理登录
     api: api/login.yml
 
     extract:

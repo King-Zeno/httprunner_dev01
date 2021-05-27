@@ -1,5 +1,5 @@
 config:
-    name: "工程管理"
+    name: "设计管理"
     output:
         - token
     variables:
@@ -10,26 +10,81 @@ config:
 
 teststeps:
 -
-    name: 登录
-    api: api/login.yml
+    name: 设计师登录
+    api: design_scheme/login.yml
 
     extract:
     -   token: content.data.token
     validate:
         - eq: ["status_code", 200]
 -
-    name: 我的-profile
-    api: api/myprofile.yml
+    name: 设计管理-设计方案-创建
+    api: design_scheme/createScheme.yml
     variables:
         token: $token
     validate:
         - eq: ["status_code", 200]
 -
-    name: 我的-更改密码
-    api: api/changewd.yml
+    name: 设计管理-设计方案-列表
+    api: design_scheme/design_cases_list.yml
     variables:
         token: $token
     validate:
         - eq: ["status_code", 200]
-
+-
+    name: 设计管理-设计方案-详情
+    api: design_scheme/design_cases_details.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-设计方案-编辑
+    api: design_scheme/changecase.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-设计方案-交接工程单
+    api: design_scheme/design_case_list.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-水电设计-领取任务
+    api: design_scheme/water_electricity_relate.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-水电设计-提交图纸
+    api: design_scheme/water_electricity_attachment.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-水电设计-列表
+    api: design_scheme/water_electricity_list.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-水电设计-列表-状态筛选项
+    api: design_scheme/water_electricity_list_screen.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-水电设计-详情
+    api: design_scheme/water_electricity_list_screen.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
 
