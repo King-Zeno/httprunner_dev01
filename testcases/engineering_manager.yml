@@ -31,5 +31,12 @@ teststeps:
         token: $token
     validate:
         - eq: ["status_code", 200]
+-
+    name: 交接工程
+    api: api/changewd.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
 
 

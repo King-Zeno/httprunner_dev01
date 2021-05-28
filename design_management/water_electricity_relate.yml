@@ -1,14 +1,12 @@
 # 指定当前用例的名称
 name: "设计管理-水电设计-领取任务"
-variables:
-   taskId: 1
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
     # 指定当前用例的url
    url: /manager/water-electricity/$taskId/relate
     # 指定当前接口的请求方式
-   method: GET
+   method: PUT
     # 指定请求头参数
    headers:
       Content-Type: "application/json"

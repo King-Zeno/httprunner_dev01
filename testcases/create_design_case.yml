@@ -2,55 +2,94 @@ config:
     name: "创建设计方案"
     output:
         - token
-        - code
+        - schemeId
     variables:
-        device_sn: "ABC"
+        designerId: 63
+        clientId: 1
+        taskId: 2
         username: ${ENV(USERNAME_DESIGNER)}
         password: ${ENV(PASSWORD_DESIGNER)}
-    base_url: ${ENV(base_url)}
+    base_url: 'http://ems.test.woapi.net:8077'
 
 teststeps:
 -
-    name: "获取验证码"
-    api: login_engineering/loginsms.yml
+    name: 设计师登录
+    api: design_management/login.yml
+
     extract:
-      - code: content.data
+    -   token: content.data.token
     validate:
         - eq: ["status_code", 200]
 -
-    name: "手机登录"
-    api: login_engineering/mobile_login.yml
+    name: 设计管理-设计方案-创建
+    api: design_management/createScheme.yml
     variables:
-        code: $code
+        token: $token
     extract:
-      - token: content.data.token
+        - schemeId: content.data.schemeId
     validate:
         - eq: ["status_code", 200]
 -
-    name: "我的详情"
-    api: mine/myinformation.yml
+    name: 设计管理-设计方案-列表
+    api: design_management/design_cases_list.yml
     variables:
         token: $token
     validate:
         - eq: ["status_code", 200]
 -
-    name: "我的评价"
-    api: mine/myevaluation.yml
+    name: 设计管理-设计方案-详情
+    api: design_management/design_cases_details.yml
     variables:
         token: $token
     validate:
         - eq: ["status_code", 200]
 -
-    name: "我的工程"
-    api: mine/myproject.yml
+    name: 设计管理-设计方案-编辑
+    api: design_management/changecase.yml
     variables:
         token: $token
     validate:
         - eq: ["status_code", 200]
 -
-    name: "我的资料"
-    api: mine/myprofile.yml
+    name: 设计管理-设计方案-交接工程单
+    api: design_management/handover_case.yml
     variables:
         token: $token
     validate:
         - eq: ["status_code", 200]
+-
+    name: 设计管理-水电设计-领取任务
+    api: design_management/water_electricity_relate.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-水电设计-提交图纸
+    api: design_management/water_electricity_attachment.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-水电设计-列表
+    api: design_management/water_electricity_list.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-水电设计-列表-状态筛选项
+    api: design_management/water_electricity_list_screen.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-水电设计-详情
+    api: design_management/water_electricity_list_screen.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+

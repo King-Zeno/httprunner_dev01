@@ -1,12 +1,10 @@
 # 指定当前用例的名称
 name: "设计管理-设计方案-交接工程单"
-variables:
-  id : 3
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
     # 指定当前用例的url
-   url: /manager/design-scheme/$id/turn-over
+   url: /manager/design-scheme/$schemeId/turn-over
     # 指定当前接口的请求方式
    method: POST
     # 指定请求头参数

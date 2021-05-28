@@ -14,8 +14,8 @@ request:
 
     # 指定json请求参数
    json:
-     proAddress: 东1111
-     clientId: 108
+     proAddress: ksdd-0528-1
+     clientId: $clientId
      house:
        houseType: 4
        area: 90.52
@@ -28,7 +28,7 @@ request:
        contractStartDate: '2021-09-06'
        contractEndDate: '2021-10-06'
        contractDays: 30
-     designerId: 66
+     designerId: $designerId
 
 # 指定断言信息
 validate:
