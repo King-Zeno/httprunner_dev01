@@ -1,0 +1,23 @@
+# 指定当前用例的名称
+name: "竣工结算 - 工程详情 - 竣工结算单 - 驳回验收"
+#项目经理专用
+variables:
+  id : 3
+base_url: ${ENV(base_url)}
+# 指定接口的请求信息
+request:
+    # 指定当前用例的url
+   url: /worker/project/$id/settlement/fail
+    # 指定当前接口的请求方式
+   method: PUT
+    # 指定请求头参数
+   headers:
+      Content-Type: "application/json"
+      Authorization: Baerer $token
+   json:
+     rejectReason: "ea"
+
+# 指定断言信息
+validate:
+   - eq: ["status_code", 200]
+   - eq: ["json.code", 12000]

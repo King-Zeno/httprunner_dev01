@@ -1,0 +1,175 @@
+config:
+    name: "客户登录"
+    output:
+        - token
+        - code
+    variables:
+        device_sn: "ABC"
+        username: ${ENV(USERNAME_CUSTOMER)}
+        password: ${ENV(PASSWORD_CUSTOMER)}
+    base_url: ${ENV(base_url)}
+
+teststeps:
+-
+    name: "获取验证码"
+    api: customer/loginsms.yml
+    extract:
+      - code: content.data
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "手机登录"
+    api: customer/mobile_login.yml
+    variables:
+        code: $code
+    extract:
+      - token: content.data.token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "我的资料"
+    api: customer/myprofile.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "消息 - 列表"
+    api: customer/message_list.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "消息 - 设置为已读"
+    api: customer/message_read.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "工程项目 - 列表"
+    api: customer/project_list.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "工程项目 - 详情"
+    api: customer/project_details.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "工程项目 - 工程人员"
+    api: customer/project_worker.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "工程项目 - 工程人员 - 详情"
+    api: customer/project_worker_details.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "工程项目 - 工程资料"
+    api: customer/project_document.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "工程项目 - 工地形象 - 详情"
+    api: customer/project_image_details.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "工程项目 - 工程动态 - 列表"
+    api: customer/project_dynamic_list.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "工程项目 - 工程动态 - 详情"
+    api: customer/project_dynamic_details.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "工程项目 - 工程动态 - 评论提交"
+    api: customer/project_dynamic_comment.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "工程项目 - 施工进度 - 列表"
+    api: customer/project_schedule_list.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "工程项目 - 工程验收 - 列表"
+    api: customer/project_schedule_acceptance_list.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "工程项目 - 工程验收 - 详情"
+    api: customer/project_schedule_acceptance_details.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "工程项目 - 工程验收 - 确认验收"
+    api: customer/project_schedule_acceptance_pass.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "工程项目 - 工程验收 - 驳回验收"
+    api: customer/project_schedule_acceptance_fail.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "工程项目 - 工程评价 - 详情"
+    api: customer/project_evaluation_details.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "工程项目 - 工程评价 - 提交评价"
+    api: customer/project_evaluation_upload.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "工程项目 - 工程评价 - 重新评价"
+    api: customer/project_evaluation_upload_second.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: "工程项目 - 工程收款 - 列表"
+    api: customer/project_payment_list.yml
+    variables:
+        token: $token
+    validate:
+        - eq: ["status_code", 200]

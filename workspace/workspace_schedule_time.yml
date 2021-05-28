@@ -1,0 +1,28 @@
+# 指定当前用例的名称
+name: "工期配置 - 工期阶段 - 时间配置"
+#项目经理专用
+variables:
+  id : 3
+base_url: ${ENV(base_url)}
+# 指定接口的请求信息
+request:
+    # 指定当前用例的url
+   url: /worker/project/$id/schedule-time
+    # 指定当前接口的请求方式
+   method: PUT
+    # 指定请求头参数
+   headers:
+      Content-Type: "application/json"
+      Authorization: Baerer $token
+   json:
+     phaseKey: demolishBuildWall
+     time:
+       range:
+         - '2021-2-27T12:46:59.431Z'
+       total: 4
+       detail:
+         - '2021-10-21'
+# 指定断言信息
+validate:
+   - eq: ["status_code", 200]
+   - eq: ["json.code", 12000]

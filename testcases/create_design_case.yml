@@ -1,12 +1,12 @@
 config:
-    name: "项目经理登录"
+    name: "创建设计方案"
     output:
         - token
         - code
     variables:
         device_sn: "ABC"
-        username: ${ENV(USERNAME_MANAGER)}
-        password: ${ENV(PASSWORD_MANAGER)}
+        username: ${ENV(USERNAME_DESIGNER)}
+        password: ${ENV(PASSWORD_DESIGNER)}
     base_url: ${ENV(base_url)}
 
 teststeps:

@@ -1,0 +1,41 @@
+# 指定当前用例的名称
+name: "工程项目 - 工程评价 - 详情"
+variables:
+   id: 1
+base_url: ${ENV(base_url)}
+# 指定接口的请求信息
+request:
+    # 指定当前用例的url
+   url: /customer/project/$id/evaluation
+    # 指定当前接口的请求方式
+   method: POST
+    # 指定请求头参数
+   headers:
+      Content-Type: "application/json"
+      #Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1dWNzIiwic3ViIjoidG9rZW4iLCJ1aWQiOjEwMywiaWF0IjoxNjA4NzkyMDc0LCJleHAiOjIwMDg4Nzg0NzQsImp0aSI6ImFkZmJzYWRmZHNhZ2doZ2g9PT0ifQ.zU6FMhqPfP_22tGiwLSid0EjqkX703mzuRPQe6goWeo"
+      Authorization: Baerer $token
+   json:
+      items:
+         - type: waterElectricity
+           items:
+              - key: 服务态度
+                value: 5
+              - key: 服务态度
+                value: 5
+         - type: putty
+           items:
+              - key: 服务态度质量
+                value: 1
+         - type: mud
+           items:
+              - key: 服务态度
+                value: 2
+              - key: 方案效果
+                value: 1
+              - key: 服务态度质量
+                value: 2
+
+# 指定断言信息
+validate:
+   - eq: ["status_code", 200]
+   - eq: ["json.code", 12000]
