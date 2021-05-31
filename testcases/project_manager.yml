@@ -12,14 +12,14 @@ config:
 teststeps:
 -
     name: "获取验证码"
-    api: login_engineering/loginsms.yml
+    api: mini-program_project/login_engineering/loginsms.yml
     extract:
       - code: content.data
     validate:
         - eq: ["status_code", 200]
 -
     name: "手机登录"
-    api: login_engineering/mobile_login.yml
+    api: mini-program_project/login_engineering/mobile_login.yml
     variables:
         code: $code
     extract:
@@ -28,28 +28,28 @@ teststeps:
         - eq: ["status_code", 200]
 -
     name: "我的详情"
-    api: mine/myinformation.yml
+    api: mini-program_project/mine/myinformation.yml
     variables:
         token: $token
     validate:
         - eq: ["status_code", 200]
 -
     name: "我的评价"
-    api: mine/myevaluation.yml
+    api: mini-program_project/mine/myevaluation.yml
     variables:
         token: $token
     validate:
         - eq: ["status_code", 200]
 -
     name: "我的工程"
-    api: mine/myproject.yml
+    api: mini-program_project/mine/myproject.yml
     variables:
         token: $token
     validate:
         - eq: ["status_code", 200]
 -
     name: "我的资料"
-    api: mine/myprofile.yml
+    api: mini-program_project/mine/myprofile.yml
     variables:
         token: $token
     validate:

@@ -1,0 +1,60 @@
+# 指定当前用例的名称
+name: "主材清单-创建"
+variables:
+   id: 1
+base_url: ${ENV(base_url)}
+# 指定接口的请求信息
+request:
+    # 指定当前用例的url
+   url: /manager/project/$id/main-material
+    # 指定当前接口的请求方式
+   method: POST
+    # 指定请求头参数
+   headers:
+      Content-Type: "application/json"
+      #Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1dWNzIiwic3ViIjoidG9rZW4iLCJ1aWQiOjEwMywiaWF0IjoxNjA4NzkyMDc0LCJleHAiOjIwMDg4Nzg0NzQsImp0aSI6ImFkZmJzYWRmZHNhZ2doZ2g9PT0ifQ.zU6FMhqPfP_22tGiwLSid0EjqkX703mzuRPQe6goWeo"
+      Authorization: Baerer $token
+   json:
+      list:
+         - area: 房间
+           category: 房门
+           brand: 安乐窝
+           sn: sdd11
+           package: '12313'
+           unit: 樘
+           number: 1
+         - area: 房间
+           category: 厨房门
+           brand: 奥泰
+           sn: sdd11
+           package: '1'
+           unit: 床
+           number: 1
+         - area: 房间
+           category: 厨房门
+           brand: 安乐窝
+           sn: sdd11
+           package: '12.5'
+           unit: 床
+           number: 2
+         - area: 厨房
+           category: 厨房门
+           brand: 奥泰
+           sn: sdd11
+           package: '1'
+           unit: 床
+           number: 1
+         - area: 厨房
+           category: 厨房门
+           brand: 安乐窝
+           sn: sdd11
+           package: '12.5'
+           unit: 床
+           number: 1
+
+
+
+# 指定断言信息
+validate:
+   - eq: ["status_code", 200]
+   - eq: ["json.code", 12000]

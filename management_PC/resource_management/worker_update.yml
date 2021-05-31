@@ -1,0 +1,31 @@
+# 指定当前用例的名称
+name: "工人管理 - 修改"
+variables:
+   id: 1
+base_url: ${ENV(base_url)}
+# 指定接口的请求信息
+request:
+    # 指定当前用例的url
+   url: /manager/resource/worker/$id
+    # 指定当前接口的请求方式
+   method: PUT
+    # 指定请求头参数
+   headers:
+      Content-Type: "application/json"
+      Authorization: Baerer $token
+   json:
+      name: 工人699
+      phone: 18754234107
+      areaCode:
+         - '110102'
+      group: groupLeader
+      functions:
+         - putty
+         - demolishBuildWall
+         - install
+         - putty
+
+# 指定断言信息
+validate:
+   - eq: ["status_code", 200]
+   - eq: ["json.code", 12000]
