@@ -1,0 +1,27 @@
+# 指定当前用例的名称
+name: "消息 - 分类 - 列表"
+variables:
+   type: project
+   #project          // 工程提醒
+   #dynamics         // 工程动态提醒
+   #completion       // 工程竣工提醒
+   #acceptance       // 工程验收提醒
+   #approval        // 工程审批提醒
+   #payment         // 工程收款提醒
+   #evaluation       // 服务评价提醒
+base_url: ${ENV(base_url)}
+# 指定接口的请求信息
+request:
+    # 指定当前用例的url
+   url: /worker/staff/message/$type
+    # 指定当前接口的请求方式
+   method: GET
+    # 指定请求头参数
+   headers:
+      Content-Type: "application/json"
+      Authorization: Baerer $token
+
+# 指定断言信息
+validate:
+   - eq: ["status_code", 200]
+   - eq: ["json.code", 12000]
