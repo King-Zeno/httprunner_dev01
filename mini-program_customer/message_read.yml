@@ -8,7 +8,7 @@ request:
     # 指定当前用例的url
    url: /customer/my/message/$id/read
     # 指定当前接口的请求方式
-   method: GET
+   method: PUT
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
