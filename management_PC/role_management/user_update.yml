@@ -1,0 +1,29 @@
+# 指定当前用例的名称
+name: "用户管理 - 修改"
+variables:
+   id: 1
+base_url: ${ENV(base_url)}
+# 指定接口的请求信息
+request:
+    # 指定当前用例的url
+   url: /manager/user/staff/$id
+    # 指定当前接口的请求方式
+   method: PUT
+    # 指定请求头参数
+   headers:
+      Content-Type: "application/json"
+      Authorization: Baerer $token
+   json:
+      name: dolore aute voluptate
+      mobile: '15774609393'
+      roleId: 3
+      password: '123456'
+      sex: 1
+      organizationId: 2
+      accountAuth:
+         - pcManager
+
+# 指定断言信息
+validate:
+   - eq: ["status_code", 200]
+   - eq: ["json.code", 12000]

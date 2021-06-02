@@ -1,0 +1,21 @@
+# 指定当前用例的名称
+name: "工程管理 - 主材清单 - 删除"
+variables:
+   id: 1
+   mid: 1
+base_url: ${ENV(base_url)}
+# 指定接口的请求信息
+request:
+    # 指定当前用例的url
+   url: /manager/engineering/$id/checklist/$mid
+    # 指定当前接口的请求方式
+   method: DELETE
+    # 指定请求头参数
+   headers:
+      Content-Type: "application/json"
+      Authorization: Baerer $token
+
+# 指定断言信息
+validate:
+   - eq: ["status_code", 200]
+   - eq: ["json.code", 12000]

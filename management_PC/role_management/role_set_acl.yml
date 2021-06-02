@@ -1,0 +1,105 @@
+# 指定当前用例的名称
+name: "role-set-acl"
+variables:
+   id: 1
+base_url: ${ENV(base_url)}
+# 指定接口的请求信息
+request:
+    # 指定当前用例的url
+   url: /manager/role/$id/acl
+    # 指定当前接口的请求方式
+   method: PUT
+    # 指定请求头参数
+   headers:
+      Content-Type: "application/json"
+      Authorization: Baerer $token
+   json:
+      data:
+         - id: nulla qui ea exercitation
+           name: tempor
+           children:
+              - id: magna aliqua
+                src: magna quis
+                name: sunt adipisicing exercitation
+                checked: true
+              - id: adipisicing cillum in dolor
+                src: dolore non
+                name: id
+                checked: true
+              - id: fugiat
+                src: exercitation
+                name: ad occaecat cillum
+                checked: false
+              - id: eu adipisicing ut
+                src: occaecat
+                name: ut do
+                checked: false
+              - id: sunt irure cupidatat cillum
+                src: cupidatat in anim sit
+                name: tempor dolor anim
+                checked: true
+           checked: true
+         - id: occaecat ullamco aliquip officia adipisicing
+           name: pariatur ea cillum Lorem
+           children:
+              - id: eu nisi pariatur aute
+                src: aliqua mollit labore Duis
+                name: sunt dolor
+                checked: true
+              - id: id
+                src: dolor
+                name: et
+                checked: false
+              - id: qui sit
+                src: aute dolore proident officia consequat
+                name: Duis
+                checked: true
+              - id: deserunt consectetur dolore velit non
+                src: non reprehenderit do in
+                name: in aute sit Duis
+                checked: false
+              - id: tempor anim minim in
+                src: mollit magna ut
+                name: sed magna laborum Ut
+                checked: true
+           checked: true
+         - id: irure
+           name: adipisicing non qui
+           children:
+              - id: irure
+                src: id
+                name: aliqua occaecat
+                checked: true
+              - id: ullamco amet eu ad
+                src: velit ullamco dolore commodo deserunt
+                name: sit aliquip ea
+                checked: true
+              - id: sed elit amet ullamco
+                src: ad
+                name: labore
+                checked: true
+           checked: false
+         - id: vol
+           name: in ea adipisicing consect
+           children:
+              - id: occaecat officia incididunt consectetur
+                src: proident nulla nostrud
+                name: labore consectetur occaecat
+                checked: true
+              - id: 'consectetur proident '
+                src: ipsum
+                name: ad in Ut
+                checked: true
+              - id: exercitation mollit et sint magna
+                src: est ea commodo
+                name: anim qui
+                checked: true
+              - id: eiusm
+                src: Ut ipsum non eiusmod
+                name: Excepteur do nulla
+                checked: true
+           checked: false
+# 指定断言信息
+validate:
+   - eq: ["status_code", 200]
+   - eq: ["json.code", 12000]

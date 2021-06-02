@@ -14,7 +14,7 @@ request:
 
     # 指定json请求参数
    json:
-     proAddress: 东1111
+     proAddress: ksdd-change-1
      clientId: $clientId
      house:
        houseType: 4

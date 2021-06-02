@@ -1,0 +1,22 @@
+# 指定当前用例的名称
+name: "内部项目网站信息配置 - 创建"
+base_url: ${ENV(base_url)}
+# 指定接口的请求信息
+request:
+    # 指定当前用例的url
+   url: /manager/web-project
+    # 指定当前接口的请求方式
+   method: POST
+    # 指定请求头参数
+   headers:
+      Content-Type: "application/json"
+      Authorization: Baerer $token
+   json:
+      id: 2
+      name: Duis
+      data: {}
+
+# 指定断言信息
+validate:
+   - eq: ["status_code", 200]
+   - eq: ["json.code", 12000]
