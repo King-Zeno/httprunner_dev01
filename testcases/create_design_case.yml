@@ -78,18 +78,3 @@ teststeps:
         token: $token
     validate:
         - eq: ["status_code", 200]
-'''-
-    name: 设计管理-水电设计-领取任务
-    api: management_PC/design_management/water_electricity_relate.yml
-    variables:
-        token: $token
-    validate:
-        - eq: ["status_code", 200]
--
-    name: 设计管理-水电设计-提交图纸
-    api: management_PC/design_management/water_electricity_attachment.yml
-    variables:
-        token: $token
-    validate:
-        - eq: ["status_code", 200]'''
-

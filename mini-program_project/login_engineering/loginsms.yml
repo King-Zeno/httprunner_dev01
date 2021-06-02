@@ -13,7 +13,7 @@ request:
 
     # 指定json请求参数
    json:
-      mobile: ${ENV(USERNAME_MANAGER)}
+      mobile: $mobile
 
 
 # 指定断言信息

@@ -1,0 +1,66 @@
+config:
+    name: "正向流"
+    output:
+        - token_D
+        - token_E
+        - schemeId
+        - code
+    variables:
+        designerId: 63
+        clientId: 1
+        taskId: 2
+    base_url: ${ENV(base_url)}
+
+teststeps:
+-
+    name: 设计师登录
+    api: management_PC/design_management/login.yml
+    extract:
+    -   token_D: content.data.token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-设计方案-创建
+    api: management_PC/design_management/createScheme.yml
+    variables:
+        token: $token_D
+    extract:
+        - schemeId: content.data.schemeId
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-设计方案-交接工程单
+    api: management_PC/design_management/handover_case.yml
+    variables:
+        token: $token_D
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 发送短信
+    api: mini-program_project/login_engineering/loginsms.yml
+    extract:
+        - code: content.data
+    variables:
+        mobile: ${ENV(USERNAME_ENG_MANAGER)}
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 工程端登录
+    api: mini-program_project/login_engineering/mobile_login.yml
+    extract:
+        - token_E: content.data.token
+    variables:
+        code: $code
+        mobile: ${ENV(USERNAME_ENG_MANAGER)}
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 确认交接
+    api: mini-program_project/login_engineering/mobile_login.yml
+    extract:
+        - token_E: content.data.token
+    variables:
+        code: $code
+        mobile: ${ENV(USERNAME_ENG_MANAGER)}
+    validate:
+        - eq: ["status_code", 200]
