@@ -1,12 +1,10 @@
 # 指定当前用例的名称
 name: "工程交接 - 确认交接"
-variables:
-  id : 3
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
     # 指定当前用例的url
-   url: /worker/project/$id/take-over
+   url: /worker/project/$projectId/take-over
     # 指定当前接口的请求方式
    method: PUT
     # 指定请求头参数
