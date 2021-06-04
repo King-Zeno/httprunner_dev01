@@ -10,11 +10,11 @@ request:
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
-      Authorization: Baerer $token
+      Authorization: Baerer $token_D
 
     # 指定json请求参数
    json:
-     proAddress: ksdd-0528-1
+     proAddress: ksdd-0604-1
      clientId: $clientId
      house:
        houseType: 4

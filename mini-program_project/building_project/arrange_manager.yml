@@ -1,16 +1,18 @@
 # 指定当前用例的名称
-name: "设计管理-设计方案-交接工程单"
+name: "工程详情 - 确认安排项目经理 "
+variables:
+   projectManagerId: 2
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
     # 指定当前用例的url
-   url: /manager/design-scheme/$schemeId/turn-over
+   url: /worker/project/$projectId/project-manager-create/$projectManagerId
     # 指定当前接口的请求方式
-   method: POST
+   method: PUT
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
-      Authorization: Baerer $token_D
+      Authorization: Baerer $token_E
 
 # 指定断言信息
 validate:

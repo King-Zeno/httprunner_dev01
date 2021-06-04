@@ -3,9 +3,16 @@ config:
     output:
         - token_D
         - token_E
+        - token_M
+        - token_I
+        - token_C
         - schemeId
         - projectId
         - code
+        - code_E
+        - code_M
+        - code_I
+        - code_C
     variables:
         designerId: 63
         clientId: 1
@@ -24,7 +31,7 @@ teststeps:
     name: 设计管理-设计方案-创建
     api: management_PC/design_management/createScheme.yml
     variables:
-        token: $token_D
+        token_D: $token_D
     extract:
         - schemeId: content.data.schemeId
         - projectId: content.data.id
@@ -34,14 +41,14 @@ teststeps:
     name: 设计管理-设计方案-交接工程单
     api: management_PC/design_management/handover_case.yml
     variables:
-        token: $token_D
+        token_D: $token_D
     validate:
         - eq: ["status_code", 200]
 -
     name: 工程部经理 - 发送短信
     api: mini-program_project/login_engineering/loginsms.yml
     extract:
-        - code: content.data
+        - code_E: content.data
     variables:
         mobile: ${ENV(USERNAME_ENG_MANAGER)}
     validate:
@@ -52,7 +59,7 @@ teststeps:
     extract:
         - token_E: content.data.token
     variables:
-        code: $code
+        code_E: $code_E
         mobile: ${ENV(USERNAME_ENG_MANAGER)}
     validate:
         - eq: ["status_code", 200]
@@ -60,27 +67,47 @@ teststeps:
     name: 工程部经理 - 确认交接
     api: mini-program_project/workspace/project_handover_ensure.yml
     variables:
-        token: $token_E
+        token_E: $token_E
     validate:
         - eq: ["status_code", 200]
 -
     name: 工程部经理 - 安排项目经理 - 列表
     api: mini-program_project/building_project/manager_list.yml
     variables:
-        token: $token_E
+        token_E: $token_E
     validate:
         - eq: ["status_code", 200]
 -
     name: 工程部经理 - 安排项目经理 - 确认安排
     api: mini-program_project/building_project/arrange_manager.yml
     variables:
-        token: $token_E
+        token_E: $token_E
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 发送短信
+    api: mini-program_project/login_manager/loginsms.yml
+    extract:
+        - code_M: content.data
+    variables:
+        mobile: ${ENV(USERNAME_MANAGER)}
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 小程序端登录
+    api: mini-program_project/login_manager/mobile_login.yml
+    extract:
+        - token_E: content.data.token
+    variables:
+        code_M: $code_M
+        mobile: ${ENV(USERNAME_MANAGER)}
     validate:
         - eq: ["status_code", 200]
 -
     name: 项目经理 - 安排形象工 - 确认安排
-    api: mini-program_project/building_project/arrange_manager.yml
+    api: mini-program_project/workspace/workspace_image_worker_list.yml
     variables:
-        token: $token_E
+        token_E: $token_E
     validate:
         - eq: ["status_code", 200]
+
