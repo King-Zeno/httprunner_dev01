@@ -1,19 +1,20 @@
 # 指定当前用例的名称
-name: "工地形象 - 安排形象工 - 确认安排"
-#工程部经理、项目经理专用
-variables:
-  imageWorkerId: 6
+name: "登录-形象工-发送短信"
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
     # 指定当前用例的url
-   url: /worker/project/$projectId/image-create/$imageWorkerId
+   url: /worker/login/sms
     # 指定当前接口的请求方式
-   method: PUT
+   method: POST
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
-      Authorization: Baerer $token_E
+
+    # 指定json请求参数
+   json:
+      mobile: $mobile
+
 
 # 指定断言信息
 validate:

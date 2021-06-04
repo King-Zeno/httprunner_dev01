@@ -7,13 +7,13 @@ base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
     # 指定当前用例的url
-   url: /worker/project/$id/image-worker
+   url: /worker/project/$projectId/image-worker
     # 指定当前接口的请求方式
    method: GET
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
-      Authorization: Baerer $token
+      Authorization: Baerer $token_I
 
 # 指定断言信息
 validate:

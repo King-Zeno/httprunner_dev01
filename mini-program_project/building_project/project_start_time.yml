@@ -1,18 +1,16 @@
 # 指定当前用例的名称
 name: "工程详情 - 确认开工日期"
-variables:
-   id: 1
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
     # 指定当前用例的url
-   url: /worker/project/$id/start-time
+   url: /worker/project/$projectId/start-time
     # 指定当前接口的请求方式
    method: PUT
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
-      Authorization: Baerer $token
+      Authorization: Baerer $token_M
    json:
       startTime: "2021-11-12"
 

@@ -13,7 +13,7 @@ request:
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
-      Authorization: Baerer $token
+      Authorization: Baerer $token_I
 
 # 指定断言信息
 validate:
