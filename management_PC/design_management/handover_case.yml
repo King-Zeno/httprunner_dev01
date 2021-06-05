@@ -9,7 +9,7 @@ request:
    method: POST
     # 指定请求头参数
    headers:
-      Content-Type: "application/json"
+      Content-Type: "application/x-www-form-urlencoded"
       Authorization: Baerer $token_D
 
 # 指定断言信息

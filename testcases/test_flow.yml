@@ -97,24 +97,31 @@ teststeps:
     name: 项目经理 - 小程序端登录
     api: mini-program_project/login_manager/mobile_login.yml
     extract:
-        - token_E: content.data.token
+        - token_M: content.data.token
     variables:
         code_M: $code_M
         mobile: ${ENV(USERNAME_MANAGER)}
     validate:
         - eq: ["status_code", 200]
 -
+    name: 项目经理 - 确认接单
+    api: mini-program_project/building_project/project_manager_confirm.yml
+    variables:
+        token_M: $token_M
+    validate:
+        - eq: ["status_code", 200]
+-
     name: 项目经理 - 获取形象工列表
     api: mini-program_project/workspace/workspace_image_worker_list.yml
     variables:
-        token_E: $token_E
+        token_M: $token_M
     validate:
         - eq: ["status_code", 200]
 -
     name: 项目经理 - 确认安排形象工
     api: mini-program_project/workspace/workspace_image_worker_choose.yml
     variables:
-        token_E: $token_E
+        token_M: $token_M
     validate:
         - eq: ["status_code", 200]
 -
@@ -134,6 +141,13 @@ teststeps:
     variables:
         code_M: $code_I
         mobile: ${ENV(USERNAME_QUOTER)}
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 形象工 - 确认接单
+    api: mini-program_project/workspace/project_imager_confirm.yml
+    variables:
+        token_I: $token_I
     validate:
         - eq: ["status_code", 200]
 -
@@ -168,63 +182,169 @@ teststeps:
     name: 项目经理 - 确认开工日期
     api: mini-program_project/building_project/project_start_time.yml
     variables:
-        token_E: $token_E
+        token_M: $token_M
+        startTime: "2021-06-12"
     validate:
         - eq: ["status_code", 200]
 -
     name: 项目经理 - 工期阶段 - 列表
     api: mini-program_project/workspace/workspace_schedule_list.yml
     variables:
-        token_E: $token_E
+        token_M: $token_M
     validate:
         - eq: ["status_code", 200]
 -
     name: 项目经理 - 拆砌墙阶段 - 时间配置
     api: mini-program_project/workspace/workspace_schedule_time.yml
     variables:
-        token_E: $token_E
+        token_M: $token_M
+        phaseKey: demolishBuildWall
+        range:
+            - '2021-06-13T05:37:53.028Z'
+            - '2021-06-20T09:03:22.533Z'
+        total: 6
     validate:
         - eq: ["status_code", 200]
 -
     name: 项目经理 - 泥工阶段 - 时间配置
     api: mini-program_project/workspace/workspace_schedule_time.yml
     variables:
-        token_E: $token_E
+        token_M: $token_M
+        phaseKey: mud
+        range:
+            - '2021-06-13T05:37:53.028Z'
+            - '2021-06-20T09:03:22.533Z'
+        total: 6
     validate:
         - eq: ["status_code", 200]
 -
     name: 项目经理 - 水电阶段 - 时间配置
     api: mini-program_project/workspace/workspace_schedule_time.yml
     variables:
-        token_E: $token_E
+        token_M: $token_M
+        phaseKey: waterElectricity
+        range:
+            - '2021-06-13T05:37:53.028Z'
+            - '2021-06-20T09:03:22.533Z'
+        total: 6
     validate:
         - eq: ["status_code", 200]
 -
     name: 项目经理 - 安装阶段 - 时间配置
     api: mini-program_project/workspace/workspace_schedule_time.yml
     variables:
-        token_E: $token_E
+        token_M: $token_M
+        phaseKey: install
+        range:
+            - '2021-06-13T05:37:53.028Z'
+            - '2021-06-20T09:03:22.533Z'
+        total: 6
     validate:
         - eq: ["status_code", 200]
 -
     name: 项目经理 - 煽灰工阶段 - 时间配置
     api: mini-program_project/workspace/workspace_schedule_time.yml
     variables:
-        token_E: $token_E
+        token_M: $token_M
+        phaseKey: putty
+        range:
+            - '2021-06-13T05:37:53.028Z'
+            - '2021-06-20T09:03:22.533Z'
+        total: 6
     validate:
         - eq: ["status_code", 200]
 -
     name: 项目经理 - 木工阶段 - 时间配置
     api: mini-program_project/workspace/workspace_schedule_time.yml
     variables:
-        token_E: $token_E
+        token_M: $token_M
+        phaseKey: wood
+        range:
+            - '2021-06-13T05:37:53.028Z'
+            - '2021-06-20T09:03:22.533Z'
+        total: 6
     validate:
         - eq: ["status_code", 200]
 -
     name: 项目经理 - 工期阶段 - 时间配置 -  确认
     api: mini-program_project/workspace/workspace_schedule_time_finished.yml
     variables:
-        token_E: $token_E
+        token_M: $token_M
     validate:
         - eq: ["status_code", 200]
-
+-
+    name: 项目经理 - 开始施工
+    api: mini-program_project/building_project/project_start.yml
+    variables:
+        token_M: $token_M
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 选择工组长列表
+    api: mini-program_project/building_project/project_schedule_grouper_list.yml
+    variables:
+        token_M: $token_M
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 施工进度列表
+    api: mini-program_project/building_project/project_schedule_list.yml
+    extract:
+        - sid_0: content.data.0.id
+        - sid_1: content.data.1.id
+        - sid_2: content.data.2.id
+        - sid_3: content.data.3.id
+        - sid_4: content.data.4.id
+        - sid_5: content.data.5.id
+    variables:
+        token_M: $token_M
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 确认安排工组长0
+    api: mini-program_project/building_project/project_schedule_choose_grouper.yml
+    variables:
+        token_M: $token_M
+        sid: $sid_0
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 确认安排工组长1
+    api: mini-program_project/building_project/project_schedule_choose_grouper.yml
+    variables:
+        token_M: $token_M
+        sid: $sid_1
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 确认安排工组长2
+    api: mini-program_project/building_project/project_schedule_choose_grouper.yml
+    variables:
+        token_M: $token_M
+        sid: $sid_2
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 确认安排工组长3
+    api: mini-program_project/building_project/project_schedule_choose_grouper.yml
+    variables:
+        token_M: $token_M
+        sid: $sid_3
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 确认安排工组长4
+    api: mini-program_project/building_project/project_schedule_choose_grouper.yml
+    variables:
+        token_M: $token_M
+        sid: $sid_4
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 确认安排工组长5
+    api: mini-program_project/building_project/project_schedule_choose_grouper.yml
+    variables:
+        token_M: $token_M
+        sid: $sid_5
+    validate:
+        - eq: ["status_code", 200]
