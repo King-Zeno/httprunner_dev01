@@ -1,19 +1,17 @@
 # 指定当前用例的名称
-name: "工程管理-竣工结算-领取任务"
-variables:
-  taskId : 3
+name: "工程项目 - 工程验收 - 详情 - 验收表"
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
     # 指定当前用例的url
-   url: /manager/settlement/$taskId/relate
+   url: /customer/project/$projectId/schedule-acceptance/$scheduleAcceptanceId/table
     # 指定当前接口的请求方式
-   method: PUT
+   method: GET
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
       #Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1dWNzIiwic3ViIjoidG9rZW4iLCJ1aWQiOjEwMywiaWF0IjoxNjA4NzkyMDc0LCJleHAiOjIwMDg4Nzg0NzQsImp0aSI6ImFkZmJzYWRmZHNhZ2doZ2g9PT0ifQ.zU6FMhqPfP_22tGiwLSid0EjqkX703mzuRPQe6goWeo"
-      Authorization: Baerer $token
+      Authorization: Baerer $token_C
 
 
 # 指定断言信息

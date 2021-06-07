@@ -14,7 +14,7 @@ request:
     # 指定json请求参数
    json:
       #工程部经理大娃
-      mobile: ${ENV(USERNAME_CUSTOMER)}
+      mobile: $mobile
 
 
 # 指定断言信息

@@ -8,7 +8,6 @@ config:
         - token_C
         - schemeId
         - projectId
-        - code
         - code_E
         - code_M
         - code_I
@@ -348,3 +347,332 @@ teststeps:
         sid: $sid_5
     validate:
         - eq: ["status_code", 200]
+-
+    name: 项目经理 - 进行提交验收申请 - 获取验收表列表
+    api: mini-program_project/building_project/project_schedule_acceptance_list.yml
+    extract:
+        - mid_0: content.data.items.0.id
+        - mid_1: content.data.items.1.id
+        - mid_2: content.data.items.2.id
+    variables:
+        token_M: $token_M
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 进行提交验收申请 - 获取验收表详情
+    api: mini-program_project/building_project/project_schedule_acceptance_details.yml
+    variables:
+        token_M: $token_M
+        mid: $mid_0
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 进行提交验收申请0
+    api: mini-program_project/building_project/project_schedule_acceptance-apply.yml
+    variables:
+        token_M: $token_M
+        scheduleId: $sid_0
+        mid: $mid_0
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 进行提交验收申请1
+    api: mini-program_project/building_project/project_schedule_acceptance-apply.yml
+    variables:
+        token_M: $token_M
+        scheduleId: $sid_1
+        mid: $mid_0
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 进行提交验收申请2
+    api: mini-program_project/building_project/project_schedule_acceptance-apply.yml
+    variables:
+        token_M: $token_M
+        scheduleId: $sid_2
+        mid: $mid_0
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 进行提交验收申请3
+    api: mini-program_project/building_project/project_schedule_acceptance-apply.yml
+    variables:
+        token_M: $token_M
+        scheduleId: $sid_3
+        mid: $mid_0
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 进行提交验收申请4
+    api: mini-program_project/building_project/project_schedule_acceptance-apply.yml
+    variables:
+        token_M: $token_M
+        scheduleId: $sid_4
+        mid: $mid_0
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 进行提交验收申请5
+    api: mini-program_project/building_project/project_schedule_acceptance-apply.yml
+    variables:
+        token_M: $token_M
+        scheduleId: $sid_5
+        mid: $mid_0
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 获取工程验收 - 列表(阶段)
+    api: mini-program_project/building_project/project_schedule-acceptance.yml
+    variables:
+        token_E: $token_E
+    extract:
+        - aid_0: content.data.0.id
+        - aid_1: content.data.1.id
+        - aid_2: content.data.2.id
+        - aid_3: content.data.3.id
+        - aid_4: content.data.4.id
+        - aid_5: content.data.5.id
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 获取验收详情
+    api: mini-program_project/workspace/workspace_acceptances_details.yml
+    variables:
+        token_E: $token_E
+        aid: $aid_0
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 通过验收申请0
+    api: mini-program_project/workspace/workspace_acceptances_details_pass.yml
+    variables:
+        token_E: $token_E
+        aid: $aid_0
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 通过验收申请1
+    api: mini-program_project/workspace/workspace_acceptances_details_pass.yml
+    variables:
+        token_E: $token_E
+        aid: $aid_1
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 通过验收申请2
+    api: mini-program_project/workspace/workspace_acceptances_details_pass.yml
+    variables:
+        token_E: $token_E
+        aid: $aid_2
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 通过验收申请3
+    api: mini-program_project/workspace/workspace_acceptances_details_pass.yml
+    variables:
+        token_E: $token_E
+        aid: $aid_3
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 通过验收申请4
+    api: mini-program_project/workspace/workspace_acceptances_details_pass.yml
+    variables:
+        token_E: $token_E
+        aid: $aid_4
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 通过验收申请5
+    api: mini-program_project/workspace/workspace_acceptances_details_pass.yml
+    variables:
+        token_E: $token_E
+        aid: $aid_5
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 客户 - 发送短信
+    api: mini-program_customer/loginsms.yml
+    extract:
+        - code_C: content.data
+    variables:
+        mobile: ${ENV(USERNAME_CUSTOMER)}
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 客户 - 小程序端登录
+    api: mini-program_customer/mobile_login.yml
+    extract:
+        - token_C: content.data.token
+    variables:
+        code_C: $code_C
+        mobile: ${ENV(USERNAME_CUSTOMER)}
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 客户 - 获取 - 工程验收列表
+    api: mini-program_customer/project_schedule_acceptance_list.yml
+    variables:
+        token_C: $token_C
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 客户 - 获取 - 工程验收详情
+    api: mini-program_customer/project_schedule_acceptance_details.yml
+    variables:
+        token_C: $token_C
+        scheduleAcceptanceId: $aid_0
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 客户 - 获取 - 工程验收详情 - 验收表
+    api: mini-program_customer/project_schedule_acceptance_details_table.yml
+    variables:
+        token_C: $token_C
+        scheduleAcceptanceId: $aid_0
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 客户 -工程验收 - 确认验收0
+    api: mini-program_customer/project_schedule_acceptance_pass.yml
+    variables:
+        token_C: $token_C
+        scheduleAcceptanceId: $aid_0
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 客户 -工程验收 - 确认验收1
+    api: mini-program_customer/project_schedule_acceptance_pass.yml
+    variables:
+        token_C: $token_C
+        scheduleAcceptanceId: $aid_1
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 客户 -工程验收 - 确认验收2
+    api: mini-program_customer/project_schedule_acceptance_pass.yml
+    variables:
+        token_C: $token_C
+        scheduleAcceptanceId: $aid_2
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 客户 -工程验收 - 确认验收3
+    api: mini-program_customer/project_schedule_acceptance_pass.yml
+    variables:
+        token_C: $token_C
+        scheduleAcceptanceId: $aid_3
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 客户 -工程验收 - 确认验收4
+    api: mini-program_customer/project_schedule_acceptance_pass.yml
+    variables:
+        token_C: $token_C
+        scheduleAcceptanceId: $aid_4
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 客户 -工程验收 - 确认验收5
+    api: mini-program_customer/project_schedule_acceptance_pass.yml
+    variables:
+        token_C: $token_C
+        scheduleAcceptanceId: $aid_5
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 最后确认验收0
+    api: mini-program_project/building_project/project_schedule_confirm-acceptance.yml
+    variables:
+        token_M: $token_M
+        scheduleId: $sid_0
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 最后确认验收1
+    api: mini-program_project/building_project/project_schedule_confirm-acceptance.yml
+    variables:
+        token_M: $token_M
+        scheduleId: $sid_1
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 最后确认验收2
+    api: mini-program_project/building_project/project_schedule_confirm-acceptance.yml
+    variables:
+        token_M: $token_M
+        scheduleId: $sid_2
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 最后确认验收3
+    api: mini-program_project/building_project/project_schedule_confirm-acceptance.yml
+    variables:
+        token_M: $token_M
+        scheduleId: $sid_3
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 最后确认验收4
+    api: mini-program_project/building_project/project_schedule_confirm-acceptance.yml
+    variables:
+        token_M: $token_M
+        scheduleId: $sid_4
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 最后确认验收5
+    api: mini-program_project/building_project/project_schedule_confirm-acceptance.yml
+    variables:
+        token_M: $token_M
+        scheduleId: $sid_5
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 确认竣工
+    api: mini-program_project/building_project/project_ensure_complete.yml
+    variables:
+        token_M: $token_M
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 报价师登录
+    api: management_PC/bidder/login.yml
+    extract:
+    -   token_B: content.data.token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 报价师 - 获取竣工结算 - 列表
+    api: management_PC/bidder/engineering_settlement_list.yml
+    variables:
+        token_B: $token_B
+    extract:
+        - taskId: content.data.items.id
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 报价师 - 获取竣工结算 - 详情
+    api: management_PC/bidder/engineering_settlement_details.yml
+    variables:
+        token_B: $token_B
+        taskId: $taskId
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 报价师 - 竣工结算 - 领取任务
+    api: management_PC/bidder/engineering_settlement_relate.yml
+    variables:
+        token_B: $token_B
+        taskId: $taskId
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 报价师 - 竣工结算 - 提交结算
+    api: management_PC/bidder/engineering_settlement_attachment.yml
+    variables:
+        token_B: $token_B
+        taskId: $taskId
+    validate:
+        - eq: ["status_code", 200]
+
