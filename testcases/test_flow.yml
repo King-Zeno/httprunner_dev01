@@ -675,4 +675,26 @@ teststeps:
         taskId: $taskId
     validate:
         - eq: ["status_code", 200]
+-
+    name: 项目经理 - 竣工结算 - 确认结算
+    api: mini-program_project/workspace/workspace_settlement_details_pass.yml
+    variables:
+        token_M: $token_M
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 客户 -竣工结算单 - 详情
+    api: mini-program_customer/project_settlement_details.yml
+    variables:
+        token_C: $token_C
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 客户 -竣工结算单 - 确认结算
+    api: mini-program_customer/project_settlement_details_pass.yml
+    variables:
+        token_C: $token_C
+    validate:
+        - eq: ["status_code", 200]
+
 
