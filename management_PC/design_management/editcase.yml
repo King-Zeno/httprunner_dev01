@@ -10,7 +10,7 @@ request:
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
-      Authorization: Baerer $token
+      Authorization: Baerer $token_D
 
     # 指定json请求参数
    json:

@@ -1,8 +1,6 @@
 # 指定当前用例的名称
 name: "工程审批 - 列表"
 #工程部经理专用
-variables:
-  id : 3
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
@@ -13,7 +11,7 @@ request:
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
-      Authorization: Baerer $token
+      Authorization: Baerer $token_E
 
 # 指定断言信息
 validate:

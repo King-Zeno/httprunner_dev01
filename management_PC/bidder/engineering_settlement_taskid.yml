@@ -1,31 +1,17 @@
 # 指定当前用例的名称
-name: "工程管理-竣工结算-提交结算"
+name: "工程管理-竣工结算-获取任务ID"
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
     # 指定当前用例的url
-   url: /manager/settlement/$taskId/attachment
+   url: /manager/settlement?search=type:projectId;value:$projectId
     # 指定当前接口的请求方式
-   method: POST
+   method: GET
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
       #Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1dWNzIiwic3ViIjoidG9rZW4iLCJ1aWQiOjEwMywiaWF0IjoxNjA4NzkyMDc0LCJleHAiOjIwMDg4Nzg0NzQsImp0aSI6ImFkZmJzYWRmZHNhZ2doZ2g9PT0ifQ.zU6FMhqPfP_22tGiwLSid0EjqkX703mzuRPQe6goWeo"
       Authorization: Baerer $token_B
-   json:
-      attachment:
-         - name: 图片名称
-           url: beego/001574a5f82f62ba3f8266c1d8632963.jpg
-      content:
-         - name: 名称31
-           num: 512
-           money: 890.1
-         - name: 名称94
-           num: 372
-           money: 7899
-      remark: 结算说明内容97113
-
-
 
 # 指定断言信息
 validate:

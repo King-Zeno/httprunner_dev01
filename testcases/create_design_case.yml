@@ -45,7 +45,7 @@ teststeps:
         - eq: ["status_code", 200]
 -
     name: 设计管理-设计方案-编辑
-    api: management_PC/design_management/changecase.yml
+    api: management_PC/design_management/editcase.yml
     variables:
         token: $token
     validate:

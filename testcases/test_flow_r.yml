@@ -12,10 +12,10 @@ config:
         - code_M
         - code_I
         - code_C
-        - taskId
     variables:
         designerId: 63
         clientId: 1
+        taskId: 2
     base_url: ${ENV(base_url)}
 
 teststeps:
@@ -60,6 +60,27 @@ teststeps:
     variables:
         code_E: $code_E
         mobile: ${ENV(USERNAME_ENG_MANAGER)}
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 驳回交接
+    api: mini-program_project/workspace/project_handover_reject.yml
+    variables:
+        token_E: $token_E
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-设计方案-重新编辑
+    api: management_PC/design_management/editcase.yml
+    variables:
+        token_D: $token_D
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-设计方案-重新交接工程单
+    api: management_PC/design_management/handover_case.yml
+    variables:
+        token_D: $token_D
     validate:
         - eq: ["status_code", 200]
 -
@@ -154,6 +175,27 @@ teststeps:
     api: mini-program_project/workspace/workspace_image_list.yml
     variables:
         token_I: $token_I
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工地形象详情
+    api: mini-program_project/workspace/workspace_image_list.yml
+    variables:
+        token_I: $token_I
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工地形象详情 - 确认完成上传
+    api: mini-program_project/workspace/workspace_image_details_upload.yml
+    variables:
+        token_I: $token_I
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 工地形象 - 驳回验收
+    api: mini-program_project/workspace/workspace_image_reject.yml
+    variables:
+        token_E: $token_E
     validate:
         - eq: ["status_code", 200]
 -
@@ -348,6 +390,45 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
+    name: 项目经理 - 辅材申请 - 获取辅材
+    api: mini-program_project/public_classify/apply_auxiliary-material.yml
+    variables:
+        token_M: $token_M
+        sid: $sid_0
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 辅材申请 - 提交申请
+    api: mini-program_project/building_project/project_schedule_apply.yml
+    variables:
+        token_M: $token_M
+        sid: $sid_0
+        type: auxiliaryMaterial
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 工程审批列表
+    api: mini-program_project/workspace/workspace_schedule-applies_list.yml
+    variables:
+        token_E: $token_E
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 工程审批列表 - 状态筛选项
+    api: mini-program_project/workspace/workspace_schedule-applies_list_screen.yml
+    variables:
+        token_E: $token_E
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 通过辅材申请
+    api: mini-program_project/workspace/workspace_acceptances_details.yml
+    variables:
+        token_E: $token_E
+        aid: 2
+    validate:
+        - eq: ["status_code", 200]
+-
     name: 项目经理 - 进行提交验收申请 - 获取验收表列表
     api: mini-program_project/building_project/project_schedule_acceptance_list.yml
     extract:
@@ -359,11 +440,27 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 项目经理 - 进行提交验收申请 - 获取验收表详情
+    name: 项目经理 - 进行提交验收申请 - 获取验收表详情0
     api: mini-program_project/building_project/project_schedule_acceptance_details.yml
     variables:
         token_M: $token_M
         mid: $mid_0
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 进行提交验收申请 - 获取验收表详情1
+    api: mini-program_project/building_project/project_schedule_acceptance_details.yml
+    variables:
+        token_M: $token_M
+        mid: $mid_1
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 进行提交验收申请 - 获取验收表详情2
+    api: mini-program_project/building_project/project_schedule_acceptance_details.yml
+    variables:
+        token_M: $token_M
+        mid: $mid_2
     validate:
         - eq: ["status_code", 200]
 -
@@ -643,8 +740,8 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 报价师 - 获取竣工结算 - 任务ID
-    api: management_PC/bidder/engineering_settlement_taskid.yml
+    name: 报价师 - 获取竣工结算 - 列表
+    api: management_PC/bidder/engineering_settlement_list.yml
     variables:
         token_B: $token_B
     extract:
