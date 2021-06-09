@@ -13,17 +13,9 @@ request:
       Authorization: Baerer $token_M
    json:
       type: $type #delay,auxiliaryMaterial,mainMaterial,resume,pause
-      desc: sint laboris aliquip cillum ad
-      attachment:
-         - in aliquip
-         - sed in tempor et esse
-         - amet occaecat est
-         - ea mollit anim voluptate nulla
-      content:
-         - id: 1
-           name: 五金
-         - id: 2
-           name: 水泥
+      desc: $desc
+      attachment: $attachment
+      content: $content
 
 # 指定断言信息
 validate:

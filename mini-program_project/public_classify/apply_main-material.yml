@@ -1,18 +1,15 @@
 # 指定当前用例的名称
 name: "审批申请 - 获取主材"
-variables:
-   projectId: 1
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
     # 指定当前用例的url
-   url: /worker/main-material/$projectId
+   url: /worker/material/main-material/$projectId
     # 指定当前接口的请求方式
    method: GET
     # 指定请求头参数
    headers:
-      Content-Type: "application/json"
-      Authorization: Baerer $token
+      Authorization: Baerer $token_M
 
 # 指定断言信息
 validate:

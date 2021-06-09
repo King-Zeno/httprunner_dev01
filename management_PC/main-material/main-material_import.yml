@@ -1,19 +1,18 @@
 # 指定当前用例的名称
-name: "工程审批 - 详情 - 审批申请 - 驳回"
-#工程部经理专用
+name: "主材清单-一键导入"
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
     # 指定当前用例的url
-   url: /worker/project/$projectId/apply/$applyId/reject
+   url: /manager/project/main-material/import
     # 指定当前接口的请求方式
-   method: PUT
+   method: POST
     # 指定请求头参数
    headers:
-      Content-Type: "application/json"
-      Authorization: Baerer $token_E
+      Content-Type: "	multipart/form-data"
+      Authorization: Baerer $token_D
    json:
-      rejectReason: "reject test"
+      upload: 1
 
 # 指定断言信息
 validate:

@@ -1,20 +1,17 @@
 # 指定当前用例的名称
 name: "工程审批 - 详情 - 审批申请 - 通过"
 #工程部经理专用
-variables:
-  id : 3
-  applyId: 1
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
     # 指定当前用例的url
-   url: /worker/project/$id/apply/$applyId/success
+   url: /worker/project/$projectId/apply/$applyId/success
     # 指定当前接口的请求方式
-   method: GET
+   method: PUT
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
-      Authorization: Baerer $token
+      Authorization: Baerer $token_E
 
 # 指定断言信息
 validate:

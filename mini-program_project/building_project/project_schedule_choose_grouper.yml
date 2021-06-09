@@ -14,7 +14,7 @@ request:
       Content-Type: "application/json"
       Authorization: Baerer $token_M
    json:
-      staffId: 5
+      staffId: 241
 
 # 指定断言信息
 validate:

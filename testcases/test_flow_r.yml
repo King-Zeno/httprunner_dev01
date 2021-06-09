@@ -12,10 +12,11 @@ config:
         - code_M
         - code_I
         - code_C
+        - taskId
+        - applyId_aux
     variables:
-        designerId: 63
-        clientId: 1
-        taskId: 2
+        designerId: 121
+        clientId: 127
     base_url: ${ENV(base_url)}
 
 teststeps:
@@ -34,6 +35,20 @@ teststeps:
     extract:
         - schemeId: content.data.schemeId
         - projectId: content.data.id
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-主材清单-创建
+    api: management_PC/main-material/main-material_create.yml
+    variables:
+        token_D: $token_D
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-工程收款-创建
+    api: management_PC/engineering_management/engineering_payment_create.yml
+    variables:
+        token_D: $token_D
     validate:
         - eq: ["status_code", 200]
 -
@@ -70,7 +85,7 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 设计管理-设计方案-重新编辑
+    name: 设计管理-设计方案-重新编辑 - (新建项目、停工中 才允许编辑)
     api: management_PC/design_management/editcase.yml
     variables:
         token_D: $token_D
@@ -404,6 +419,89 @@ teststeps:
         token_M: $token_M
         sid: $sid_0
         type: auxiliaryMaterial
+        desc: 亲，今晚花好月圆，请恩准哦
+        attachment:
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+        content:
+            - id: 1
+              name: 五金
+            - id: 2
+              name: 水泥
+    extract:
+      - applyId_aux: content.data
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 主材申请 - 获取主材
+    api: mini-program_project/public_classify/apply_main-material.yml
+    variables:
+        token_M: $token_M
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 主材申请 - 提交申请
+    api: mini-program_project/building_project/project_schedule_apply.yml
+    variables:
+        token_M: $token_M
+        sid: $sid_0
+        type: mainMaterial
+        desc: 亲，今晚花好月圆，请恩准哦
+        attachment:
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+        content:
+            - id: 1
+              category: 卫生间门
+              brand: 欧罗拉
+              sn: 型号 AA
+              spec: 无
+            - id: 2
+              category: 地砖
+              brand: 亚细亚
+              sn: 型号 BB
+              spec: 800*800
+    extract:
+      - applyId_main: content.data
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 主材部经理 - 发送短信
+    api: mini-program_project/login_main_manager/loginsms.yml
+    extract:
+        - code_A: content.data
+    variables:
+        mobile: ${ENV(USERNAME_MAIN)}
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 主材部经理 - 小程序端登录
+    api: mini-program_project/login_main_manager/mobile_login.yml
+    extract:
+        - token_A: content.data.token
+    variables:
+        code_A: $code_A
+        mobile: ${ENV(USERNAME_MAIN)}
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 主材部经理 - 通过主材申请
+    api: mini-program_project/workspace/workspace_schedule-applies_details_pass.yml
+    variables:
+        token_E: $token_A
+        applyId: $applyId_main
     validate:
         - eq: ["status_code", 200]
 -
@@ -414,18 +512,45 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理 - 工程审批列表 - 状态筛选项
-    api: mini-program_project/workspace/workspace_schedule-applies_list_screen.yml
+    name: 工程部经理 - 驳回辅材申请
+    api: mini-program_project/workspace/workspace_schedule-applies_details_fail.yml
     variables:
         token_E: $token_E
+        applyId: $applyId_aux
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 辅材申请 - 再次提交申请
+    api: mini-program_project/building_project/project_schedule_apply.yml
+    variables:
+        token_M: $token_M
+        sid: $sid_0
+        type: auxiliaryMaterial
+        desc: 亲，今晚花好月圆，请恩准哦
+        attachment:
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+        content:
+            - id: 1
+              name: 五金
+            - id: 2
+              name: 水泥
+    extract:
+      - applyId_aux_2: content.data
     validate:
         - eq: ["status_code", 200]
 -
     name: 工程部经理 - 通过辅材申请
-    api: mini-program_project/workspace/workspace_acceptances_details.yml
+    api: mini-program_project/workspace/workspace_schedule-applies_details_pass.yml
     variables:
         token_E: $token_E
-        aid: 2
+        applyId: $applyId_aux_2
     validate:
         - eq: ["status_code", 200]
 -
@@ -740,8 +865,8 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 报价师 - 获取竣工结算 - 列表
-    api: management_PC/bidder/engineering_settlement_list.yml
+    name: 报价师 - 获取竣工结算 - 任务ID
+    api: management_PC/bidder/engineering_settlement_taskid.yml
     variables:
         token_B: $token_B
     extract:

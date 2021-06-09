@@ -1,19 +1,17 @@
 # 指定当前用例的名称
 name: "工程管理-工程详情-更换工程部经理"
 variables:
-  id: 3
   staffId: 2
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
     # 指定当前用例的url
-   url: /manager/project/$id/change-engineering-manager/$staffId
+   url: /manager/project/$projectId/change-engineering-manager/$staffId
     # 指定当前接口的请求方式
    method: PUT
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
-      #Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1dWNzIiwic3ViIjoidG9rZW4iLCJ1aWQiOjEwMywiaWF0IjoxNjA4NzkyMDc0LCJleHAiOjIwMDg4Nzg0NzQsImp0aSI6ImFkZmJzYWRmZHNhZ2doZ2g9PT0ifQ.zU6FMhqPfP_22tGiwLSid0EjqkX703mzuRPQe6goWeo"
       Authorization: Baerer $token
 
 
