@@ -598,7 +598,7 @@ teststeps:
     variables:
         token_M: $token_M
         sid: $sid_0
-        type: pause
+        type: schedulePause
         desc: 停工申请
         attachment:
             - name: 附件名称
@@ -633,7 +633,7 @@ teststeps:
     variables:
         token_M: $token_M
         sid: $sid_0
-        type: resume
+        type: scheduleResume
         desc: 复工申请
         attachment:
             - name: 附件名称
