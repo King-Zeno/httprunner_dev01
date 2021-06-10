@@ -1,5 +1,5 @@
 config:
-    name: "正向流"
+    name: "逆向流"
     output:
         - token_D
         - token_E
@@ -15,8 +15,9 @@ config:
         - taskId
         - applyId_aux
     variables:
-        designerId: 121
-        clientId: 127
+        designerId: 135
+        clientId: 141
+        staffId: 1
     base_url: ${ENV(base_url)}
 
 teststeps:
@@ -502,6 +503,7 @@ teststeps:
     variables:
         token_E: $token_A
         applyId: $applyId_main
+        date: "2021-08-01"
     validate:
         - eq: ["status_code", 200]
 -
@@ -551,6 +553,113 @@ teststeps:
     variables:
         token_E: $token_E
         applyId: $applyId_aux_2
+        date: "2021-12-31"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 延期申请 - 提交申请
+    api: mini-program_project/building_project/project_schedule_apply_delay.yml
+    variables:
+        token_M: $token_M
+        sid: $sid_0
+        type: delay
+        desc: 亲，今晚花好月圆，请恩准哦
+        attachment:
+          - name: 附件名称
+            url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+          - name: 附件名称
+            url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+          - name: 附件名称
+            url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+          - name: 附件名称
+            url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+        content:
+          - id: 1
+            name: 五金
+          - id: 2
+            name: 水泥
+        time: "2021-12-31"
+    extract:
+      - applyId_delay: content.data
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 通过延期申请
+    api: mini-program_project/workspace/workspace_schedule-applies_details_pass.yml
+    variables:
+        token_E: $token_E
+        applyId: $applyId_delay
+        date: "2021-12-31"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 停工申请 - 提交申请
+    api: mini-program_project/building_project/project_schedule_apply.yml
+    variables:
+        token_M: $token_M
+        sid: $sid_0
+        type: pause
+        desc: 停工申请
+        attachment:
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+        content:
+            - id: 1
+              name: 五金
+            - id: 2
+              name: 水泥
+    extract:
+      - applyId_pause: content.data
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 通过停工申请
+    api: mini-program_project/workspace/workspace_schedule-applies_details_pass.yml
+    variables:
+        token_E: $token_E
+        applyId: $applyId_pause
+        date: "2021-12-31"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 复工申请 - 提交申请
+    api: mini-program_project/building_project/project_schedule_apply.yml
+    variables:
+        token_M: $token_M
+        sid: $sid_0
+        type: resume
+        desc: 复工申请
+        attachment:
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+            - name: 附件名称
+              url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
+        content:
+            - id: 1
+              name: 五金
+            - id: 2
+              name: 水泥
+    extract:
+      - applyId_resume: content.data
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 通过复工申请
+    api: mini-program_project/workspace/workspace_schedule-applies_details_pass.yml
+    variables:
+        token_E: $token_E
+        applyId: $applyId_resume
+        date: "2021-12-31"
     validate:
         - eq: ["status_code", 200]
 -

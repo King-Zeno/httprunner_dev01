@@ -14,8 +14,9 @@ config:
         - code_C
         - taskId
     variables:
-        designerId: 63
-        clientId: 1
+        designerId: 135
+        clientId: 141
+        staffId: 1
     base_url: ${ENV(base_url)}
 
 teststeps:
@@ -262,6 +263,13 @@ teststeps:
             - '2021-06-13T05:37:53.028Z'
             - '2021-06-20T09:03:22.533Z'
         total: 6
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 工期阶段 - 列表
+    api: mini-program_project/workspace/workspace_schedule_list.yml
+    variables:
+        token_M: $token_M
     validate:
         - eq: ["status_code", 200]
 -

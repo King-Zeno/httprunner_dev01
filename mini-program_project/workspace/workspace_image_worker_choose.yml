@@ -2,7 +2,7 @@
 name: "工地形象 - 安排形象工 - 确认安排"
 #工程部经理、项目经理专用
 variables:
-  imageWorkerId: 6
+  imageWorkerId: 138
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
