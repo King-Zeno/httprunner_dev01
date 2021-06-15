@@ -10,8 +10,7 @@ request:
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
-      #Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1dWNzIiwic3ViIjoidG9rZW4iLCJ1aWQiOjEwMywiaWF0IjoxNjA4NzkyMDc0LCJleHAiOjIwMDg4Nzg0NzQsImp0aSI6ImFkZmJzYWRmZHNhZ2doZ2g9PT0ifQ.zU6FMhqPfP_22tGiwLSid0EjqkX703mzuRPQe6goWeo"
-      Authorization: Baerer $token
+      Authorization: Baerer $token_C
 
 
 # 指定断言信息

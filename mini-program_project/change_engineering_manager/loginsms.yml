@@ -1,16 +1,20 @@
 # 指定当前用例的名称
-name: "设计管理-水电设计-列表"
+name: "登录-工程部经理-发送短信"
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
     # 指定当前用例的url
-   url: /manager/water-electricity
+   url: /worker/login/sms
     # 指定当前接口的请求方式
-   method: GET
+   method: POST
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
-      Authorization: Baerer $token
+
+    # 指定json请求参数
+   json:
+      mobile: $mobile
+
 
 # 指定断言信息
 validate:

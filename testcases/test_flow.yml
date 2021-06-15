@@ -183,7 +183,7 @@ teststeps:
     api: mini-program_project/building_project/project_start_time.yml
     variables:
         token_M: $token_M
-        startTime: "2021-06-12"
+        startTime: "2021-07-12"
     validate:
         - eq: ["status_code", 200]
 -
@@ -200,8 +200,8 @@ teststeps:
         token_M: $token_M
         phaseKey: demolishBuildWall
         range:
-            - '2021-06-13T05:37:53.028Z'
-            - '2021-06-20T09:03:22.533Z'
+            - '2021-07-13T05:37:53.028Z'
+            - '2021-07-20T09:03:22.533Z'
         total: 6
     validate:
         - eq: ["status_code", 200]
@@ -212,8 +212,8 @@ teststeps:
         token_M: $token_M
         phaseKey: mud
         range:
-            - '2021-06-13T05:37:53.028Z'
-            - '2021-06-20T09:03:22.533Z'
+            - '2021-07-13T05:37:53.028Z'
+            - '2021-07-20T09:03:22.533Z'
         total: 6
     validate:
         - eq: ["status_code", 200]
@@ -224,8 +224,8 @@ teststeps:
         token_M: $token_M
         phaseKey: waterElectricity
         range:
-            - '2021-06-13T05:37:53.028Z'
-            - '2021-06-20T09:03:22.533Z'
+            - '2021-07-13T05:37:53.028Z'
+            - '2021-07-20T09:03:22.533Z'
         total: 6
     validate:
         - eq: ["status_code", 200]
@@ -236,8 +236,8 @@ teststeps:
         token_M: $token_M
         phaseKey: install
         range:
-            - '2021-06-13T05:37:53.028Z'
-            - '2021-06-20T09:03:22.533Z'
+            - '2021-07-13T05:37:53.028Z'
+            - '2021-07-20T09:03:22.533Z'
         total: 6
     validate:
         - eq: ["status_code", 200]
@@ -248,8 +248,8 @@ teststeps:
         token_M: $token_M
         phaseKey: putty
         range:
-            - '2021-06-13T05:37:53.028Z'
-            - '2021-06-20T09:03:22.533Z'
+            - '2021-07-13T05:37:53.028Z'
+            - '2021-07-20T09:03:22.533Z'
         total: 6
     validate:
         - eq: ["status_code", 200]
@@ -260,8 +260,8 @@ teststeps:
         token_M: $token_M
         phaseKey: wood
         range:
-            - '2021-06-13T05:37:53.028Z'
-            - '2021-06-20T09:03:22.533Z'
+            - '2021-07-13T05:37:53.028Z'
+            - '2021-07-20T09:03:22.533Z'
         total: 6
     validate:
         - eq: ["status_code", 200]
@@ -704,5 +704,24 @@ teststeps:
         token_C: $token_C
     validate:
         - eq: ["status_code", 200]
-
-
+-
+    name: 客户 - 工程评价 - 提交评价
+    api: mini-program_customer/project_evaluation_upload.yml
+    variables:
+        token_C: $token_C
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 客户 - 工程评价 - 重新评价
+    api: mini-program_customer/project_evaluation_upload_second.yml
+    variables:
+        token_C: $token_C
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 客户 - 工程评价 - 详情
+    api: mini-program_customer/project_evaluation_details.yml
+    variables:
+        token_C: $token_C
+    validate:
+        - eq: ["status_code", 200]

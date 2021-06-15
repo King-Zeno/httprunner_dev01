@@ -1,16 +1,19 @@
 # 指定当前用例的名称
-name: "设计管理-水电设计-列表"
+name: "工地形象 - 驳回验收"
+#工程部经理专用
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
     # 指定当前用例的url
-   url: /manager/water-electricity
+   url: /worker/project/$projectId/image-reject
     # 指定当前接口的请求方式
-   method: GET
+   method: PUT
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
-      Authorization: Baerer $token
+      Authorization: Baerer $token_E2
+   json:
+     rejectReason: "again"
 
 # 指定断言信息
 validate:
