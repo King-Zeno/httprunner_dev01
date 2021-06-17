@@ -1,10 +1,11 @@
 # 指定当前用例的名称
-name: "工程详情 - 管理手册 - 列表"
+name: "工期配置 - 工期阶段 - 关闭"
+#项目经理专用
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
     # 指定当前用例的url
-   url: /worker/project/$projectId/manual/$mid
+   url: /worker/project/$projectId/schedule-close
     # 指定当前接口的请求方式
    method: PUT
     # 指定请求头参数
@@ -12,7 +13,8 @@ request:
       Content-Type: "application/json"
       Authorization: Baerer $token_M
    json:
-      content: $content
+      phaseKey: $phaseKey
+
 # 指定断言信息
 validate:
    - eq: ["status_code", 200]

@@ -1,5 +1,5 @@
 config:
-    name: "正向流"
+    name: "管理手册 - 测试"
     output:
         - token_D
         - token_E
@@ -43,9 +43,9 @@ teststeps:
             address: 兴文路
             houses: 1
             roomType: 2
-            contractStartDate: '2021-07-06'
+            contractStartDate: '2021-09-06'
             contractEndDate: '2021-10-06'
-            contractDays: 90
+            contractDays: 30
     extract:
         - schemeId: content.data.schemeId
         - projectId: content.data.id
@@ -372,12 +372,210 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 项目经理 - 进行提交验收申请 - 获取验收表列表
-    api: mini-program_project/building_project/project_schedule_acceptance_list.yml
+    name: 项目经理 - 获取 - 管理手册 - 列表
+    api: mini-program_project/building_project/project_manual_list.yml
+    variables:
+        token_M: $token_M
     extract:
         - mid_0: content.data.items.0.id
         - mid_1: content.data.items.1.id
         - mid_2: content.data.items.2.id
+        - mid_3: content.data.items.3.id
+        - mid_4: content.data.items.4.id
+        - mid_5: content.data.items.5.id
+        - mid_6: content.data.items.6.id
+        - mid_7: content.data.items.7.id
+        - mid_8: content.data.items.8.id
+        - mid_9: content.data.items.9.id
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 获取 - 管理手册 - 详情
+    api: mini-program_project/building_project/project_manual_details.yml
+    variables:
+        token_M: $token_M
+        mid: $mid_0
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 获取 - 管理手册 - 更新隐藏工程（水、电）验收记录表
+    api: mini-program_project/building_project/project_manual_modifacation.yml
+    variables:
+        token_M: $token_M
+        mid: $mid_0
+        content:
+            content:
+                - data:
+                      - key: '1'
+                        value: 合格
+                      - key: '0'
+                        value: 不合格
+                  type: choice
+                  title: 1、电线品牌和导线截面积符合设计要求
+                  value: '1'
+                  position: bottom
+                - data:
+                      - key: '1'
+                        value: 合格
+                      - key: '0'
+                        value: 不合格
+                  type: choice
+                  title: 2、导线应使用PVC管套管，梁柱及转角用黄蜡管套管
+                  value: '1'
+                  position: bottom
+                - data:
+                      - key: '1'
+                        value: 合格
+                      - key: '0'
+                        value: 不合格
+                  type: choice
+                  title: 3、线管横平竖直，固定牢固
+                  value: '1'
+                  position: bottom
+                - data:
+                      - key: '1'
+                        value: 合格
+                      - key: '0'
+                        value: 不合格
+                  type: choice
+                  title: 4、强弱电分管铺设
+                  value: '1'
+                  position: bottom
+                - data:
+                      - key: '1'
+                        value: 合格
+                      - key: '0'
+                        value: 不合格
+                  type: choice
+                  title: 5、导线应分色铺设，中间无接头
+                  value: '1'
+                  position: bottom
+                - data:
+                      - key: '1'
+                        value: 合格
+                      - key: '0'
+                        value: 不合格
+                  type: choice
+                  title: 6、大功率电器专线铺设，配专用插座
+                  value: '1'
+                  position: bottom
+                - data:
+                      - key: '1'
+                        value: 合格
+                      - key: '0'
+                        value: 不合格
+                  type: choice
+                  title: 7、开关，插座底盒高度一致，位置正确
+                  value: '1'
+                  position: bottom
+                - data:
+                      - key: '1'
+                        value: 合格
+                      - key: '0'
+                        value: 不合格
+                  type: choice
+                  title: 8、导线的绝缘电阻应 > 0.5 兆欧
+                  value: '1'
+                  position: bottom
+                - data:
+                      - key: '1'
+                        value: 合格
+                      - key: '0'
+                        value: 不合格
+                  type: choice
+                  title: 9、专线与线绝缘、与线短路、与地绝缘验收结果
+                  value: '1'
+                  position: bottom
+                - data:
+                      - key: '1'
+                        value: 合格
+                      - key: '0'
+                        value: 不合格
+                  type: choice
+                  title: 10、灯线与线绝缘、与线短路、与地绝缘验收结果
+                  value: '1'
+                  position: bottom
+                - data:
+                      - key: '1'
+                        value: 合格
+                      - key: '0'
+                        value: 不合格
+                  type: choice
+                  title: 11、插座与线绝缘、与线短路、与地绝缘验收结果
+                  value: '1'
+                  position: bottom
+                - data:
+                      - key: '1'
+                        value: 合格
+                      - key: '0'
+                        value: 不合格
+                  type: choice
+                  title: 12、网线与线绝缘、与线短路、与地绝缘验收结果
+                  value: '1'
+                  position: bottom
+                - data:
+                      - key: '1'
+                        value: 合格
+                      - key: '0'
+                        value: 不合格
+                  type: choice
+                  title: 13、PP-R管品牌及符合设计要求
+                  value: '1'
+                  position: bottom
+                - data:
+                      - key: '1'
+                        value: 合格
+                      - key: '0'
+                        value: 不合格
+                  type: choice
+                  title: 14、管道铺设横平竖直，固定牢固
+                  value: '1'
+                  position: bottom
+                - data:
+                      - key: '1'
+                        value: 合格
+                      - key: '0'
+                        value: 不合格
+                  type: choice
+                  title: 15、冷热水位置应正确，左热右冷
+                  value: '1'
+                  position: bottom
+                - data:
+                      - key: '1'
+                        value: 合格
+                      - key: '0'
+                        value: 不合格
+                  type: choice
+                  title: 16、排水管道布置合理，固定牢固
+                  value: '1'
+                  position: bottom
+                - data:
+                      - key: '1'
+                        value: 合格
+                      - key: '0'
+                        value: 不合格
+                  type: choice
+                  title: 17、排水管方面正确，坡度合理
+                  value: '1'
+                  position: bottom
+                - type: pressure
+                  title: 18、给水管试压检验记录：
+                  value:
+                      mpa: '100'
+                      result: '1'
+                      endTime: '2021-06-17 12:01'
+                      testMpa: '100'
+                      startTime: '2021-06-17 12:07'
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 进行提交验收申请 - 获取验收表列表
+    api: mini-program_project/building_project/project_schedule_acceptance_list.yml
+    extract:
+        - mid_00: content.data.items.0.id
+        - mid_11: content.data.items.1.id
+        - mid_22: content.data.items.2.id
+        - mid_33: content.data.items.3.id
     variables:
         token_M: $token_M
     validate:
@@ -387,7 +585,7 @@ teststeps:
     api: mini-program_project/building_project/project_schedule_acceptance_details.yml
     variables:
         token_M: $token_M
-        mid: $mid_0
+        mid: $mid_33
     validate:
         - eq: ["status_code", 200]
 -
@@ -396,7 +594,7 @@ teststeps:
     variables:
         token_M: $token_M
         scheduleId: $sid_0
-        mid: $mid_0
+        mid: $mid_33
     validate:
         - eq: ["status_code", 200]
 -
@@ -405,7 +603,7 @@ teststeps:
     variables:
         token_M: $token_M
         scheduleId: $sid_1
-        mid: $mid_0
+        mid: $mid_33
     validate:
         - eq: ["status_code", 200]
 -
@@ -414,7 +612,7 @@ teststeps:
     variables:
         token_M: $token_M
         scheduleId: $sid_2
-        mid: $mid_0
+        mid: $mid_33
     validate:
         - eq: ["status_code", 200]
 -
@@ -423,7 +621,7 @@ teststeps:
     variables:
         token_M: $token_M
         scheduleId: $sid_3
-        mid: $mid_0
+        mid: $mid_33
     validate:
         - eq: ["status_code", 200]
 -
@@ -432,7 +630,7 @@ teststeps:
     variables:
         token_M: $token_M
         scheduleId: $sid_4
-        mid: $mid_0
+        mid: $mid_33
     validate:
         - eq: ["status_code", 200]
 -
@@ -441,7 +639,7 @@ teststeps:
     variables:
         token_M: $token_M
         scheduleId: $sid_5
-        mid: $mid_0
+        mid: $mid_33
     validate:
         - eq: ["status_code", 200]
 -

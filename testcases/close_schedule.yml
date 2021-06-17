@@ -1,5 +1,5 @@
 config:
-    name: "正向流"
+    name: "关闭工程阶段 - 测试用例"
     output:
         - token_D
         - token_E
@@ -32,7 +32,7 @@ teststeps:
     api: management_PC/design_management/createScheme.yml
     variables:
         token_D: $token_D
-        proAddress: 正向流
+        proAddress: 关闭工程阶段 - 测试用例
         clientId: $clientId
         house:
             houseType: 4
@@ -45,7 +45,7 @@ teststeps:
             roomType: 2
             contractStartDate: '2021-07-06'
             contractEndDate: '2021-10-06'
-            contractDays: 90
+            contractDays: 30
     extract:
         - schemeId: content.data.schemeId
         - projectId: content.data.id
@@ -210,15 +210,11 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 项目经理 - 拆砌墙阶段 - 时间配置
-    api: mini-program_project/workspace/workspace_schedule_time.yml
+    name: 项目经理 - 拆砌墙阶段 - 关闭此阶段
+    api: mini-program_project/workspace/workspace_schedule_close.yml
     variables:
         token_M: $token_M
         phaseKey: demolishBuildWall
-        range:
-            - '2021-07-13T05:37:53.028Z'
-            - '2021-07-20T09:03:22.533Z'
-        total: 6
     validate:
         - eq: ["status_code", 200]
 -
@@ -318,7 +314,6 @@ teststeps:
         - sid_2: content.data.2.id
         - sid_3: content.data.3.id
         - sid_4: content.data.4.id
-        - sid_5: content.data.5.id
     variables:
         token_M: $token_M
     validate:
@@ -361,14 +356,6 @@ teststeps:
     variables:
         token_M: $token_M
         sid: $sid_4
-    validate:
-        - eq: ["status_code", 200]
--
-    name: 项目经理 - 确认安排工组长5
-    api: mini-program_project/building_project/project_schedule_choose_grouper.yml
-    variables:
-        token_M: $token_M
-        sid: $sid_5
     validate:
         - eq: ["status_code", 200]
 -
@@ -436,15 +423,6 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 项目经理 - 进行提交验收申请5
-    api: mini-program_project/building_project/project_schedule_acceptance-apply.yml
-    variables:
-        token_M: $token_M
-        scheduleId: $sid_5
-        mid: $mid_0
-    validate:
-        - eq: ["status_code", 200]
--
     name: 工程部经理 - 获取工程验收 - 列表(阶段)
     api: mini-program_project/building_project/project_schedule-acceptance.yml
     variables:
@@ -455,7 +433,6 @@ teststeps:
         - aid_2: content.data.2.id
         - aid_3: content.data.3.id
         - aid_4: content.data.4.id
-        - aid_5: content.data.5.id
     validate:
         - eq: ["status_code", 200]
 -
@@ -504,14 +481,6 @@ teststeps:
     variables:
         token_E: $token_E
         aid: $aid_4
-    validate:
-        - eq: ["status_code", 200]
--
-    name: 工程部经理 - 通过验收申请5
-    api: mini-program_project/workspace/workspace_acceptances_details_pass.yml
-    variables:
-        token_E: $token_E
-        aid: $aid_5
     validate:
         - eq: ["status_code", 200]
 -
@@ -597,14 +566,6 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 客户 -工程验收 - 确认验收5
-    api: mini-program_customer/project_schedule_acceptance_pass.yml
-    variables:
-        token_C: $token_C
-        scheduleAcceptanceId: $aid_5
-    validate:
-        - eq: ["status_code", 200]
--
     name: 项目经理 - 最后确认验收0
     api: mini-program_project/building_project/project_schedule_confirm-acceptance.yml
     variables:
@@ -642,14 +603,6 @@ teststeps:
     variables:
         token_M: $token_M
         scheduleId: $sid_4
-    validate:
-        - eq: ["status_code", 200]
--
-    name: 项目经理 - 最后确认验收5
-    api: mini-program_project/building_project/project_schedule_confirm-acceptance.yml
-    variables:
-        token_M: $token_M
-        scheduleId: $sid_5
     validate:
         - eq: ["status_code", 200]
 -
