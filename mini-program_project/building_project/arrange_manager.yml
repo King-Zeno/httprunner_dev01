@@ -1,7 +1,5 @@
 # 指定当前用例的名称
 name: "工程详情 - 确认安排项目经理 "
-variables:
-   projectManagerId: 137
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:

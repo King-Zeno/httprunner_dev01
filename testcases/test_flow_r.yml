@@ -50,6 +50,7 @@ teststeps:
     api: management_PC/engineering_management/engineering_payment_create.yml
     variables:
         token_D: $token_D
+        money: 10000
     validate:
         - eq: ["status_code", 200]
 -
@@ -114,13 +115,6 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理 - 安排项目经理 - 确认安排
-    api: mini-program_project/building_project/arrange_manager.yml
-    variables:
-        token_E: $token_E
-    validate:
-        - eq: ["status_code", 200]
--
     name: 项目经理 - 发送短信
     api: mini-program_project/login_manager/loginsms.yml
     extract:
@@ -134,9 +128,17 @@ teststeps:
     api: mini-program_project/login_manager/mobile_login.yml
     extract:
         - token_M: content.data.token
+        - projectManagerId: content.data.profile.uid
     variables:
         code_M: $code_M
         mobile: ${ENV(USERNAME_MANAGER)}
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 安排项目经理 - 确认安排
+    api: mini-program_project/building_project/arrange_manager.yml
+    variables:
+        token_E: $token_E
     validate:
         - eq: ["status_code", 200]
 -
@@ -154,19 +156,12 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 项目经理 - 确认安排形象工
-    api: mini-program_project/workspace/workspace_image_worker_choose.yml
-    variables:
-        token_M: $token_M
-    validate:
-        - eq: ["status_code", 200]
--
     name: 形象工 - 发送短信
     api: mini-program_project/login_imager/loginsms.yml
     extract:
         - code_I: content.data
     variables:
-        mobile: ${ENV(USERNAME_QUOTER)}
+        mobile: ${ENV(USERNAME_IMAGER)}
     validate:
         - eq: ["status_code", 200]
 -
@@ -174,9 +169,17 @@ teststeps:
     api: mini-program_project/login_imager/mobile_login.yml
     extract:
         - token_I: content.data.token
+        - imageWorkerId: content.data.profile.uid
     variables:
-        code_M: $code_I
-        mobile: ${ENV(USERNAME_QUOTER)}
+        code_I: $code_I
+        mobile: ${ENV(USERNAME_IMAGER)}
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 确认安排形象工
+    api: mini-program_project/workspace/workspace_image_worker_choose.yml
+    variables:
+        token_M: $token_M
     validate:
         - eq: ["status_code", 200]
 -

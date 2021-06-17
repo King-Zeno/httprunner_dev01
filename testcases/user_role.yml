@@ -1,0 +1,275 @@
+config:
+    name: "用户创建 - 权限测试"
+    output:
+        - token_D
+        - token_E
+        - token_M
+        - token_I
+        - token_C
+        - schemeId
+        - projectId
+        - code_E
+        - code_M
+        - code_I
+        - code_C
+        - taskId
+        - dynamicId
+    variables:
+        designerId: 199
+        clientId: 207
+        staffId: 1
+    base_url: ${ENV(base_url)}
+
+teststeps:
+-
+    name: 超级管理员登录
+    api: management_PC/login_PC/login.yml
+    extract:
+    -   token_S: content.data.token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 超级管理员 - 创建设计师
+    api: management_PC/role_management/user_create.yml
+    variables:
+        token_S: $token_S
+        name: "设计师KK"
+        mobile: "15575541001"
+        roleId:
+            - 19
+        password: "123456"
+        sex: 1
+        organizationIds:
+            - 1
+        accountAuth:
+            - "pcManager"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计师登录
+    api: management_PC/login_PC/login_user.yml
+    variables:
+        mobile: "15575541001"
+        password: "123456"
+    extract:
+    -   token_D: content.data.token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 超级管理员 - 创建工程部经理
+    api: management_PC/role_management/user_create.yml
+    variables:
+        token_S: $token_S
+        name: "工程部经理KK"
+        mobile: "15575541002"
+        roleId:
+            - 17
+        password: "123456"
+        sex: 1
+        organizationIds:
+            - 1
+        accountAuth:
+            - "pcManager"
+            - "miniAppsWorker"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理登录
+    api: management_PC/login_PC/login_user.yml
+    variables:
+        mobile: "15575541002"
+        password: "123456"
+    extract:
+    -   token_D: content.data.token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 发送短信
+    api: mini-program_project/login_engineering/loginsms.yml
+    extract:
+        - code_E: content.data
+    variables:
+        mobile: "15575541002"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 小程序端登录
+    api: mini-program_project/login_engineering/mobile_login.yml
+    extract:
+        - token_E: content.data.token
+    variables:
+        code_E: $code_E
+        mobile: "15575541002"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 超级管理员 - 创建项目经理
+    api: management_PC/role_management/user_create.yml
+    variables:
+        token_S: $token_S
+        name: "项目经理KK"
+        mobile: "15575541003"
+        roleId:
+            - 18
+        password: "123456"
+        sex: 1
+        organizationIds:
+            - 1
+        accountAuth:
+            - "miniAppsWorker"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 发送短信
+    api: mini-program_project/login_manager/loginsms.yml
+    extract:
+        - code_M: content.data
+    variables:
+        mobile: "15575541003"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 小程序端登录
+    api: mini-program_project/login_manager/mobile_login.yml
+    extract:
+        - token_M: content.data.token
+        - projectManagerId: content.data.profile.uid
+    variables:
+        code_M: $code_M
+        mobile: "15575541003"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 超级管理员 - 创建形象工
+    api: management_PC/role_management/user_create.yml
+    variables:
+        token_S: $token_S
+        name: "形象工KK"
+        mobile: "15575541004"
+        roleId:
+            - 22
+        password: "123456"
+        sex: 1
+        organizationIds:
+            - 1
+        accountAuth:
+            - "miniAppsWorker"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 形象工 - 发送短信
+    api: mini-program_project/login_imager/loginsms.yml
+    extract:
+        - code_I: content.data
+    variables:
+        mobile: "15575541004"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 形象工 - 小程序端登录
+    api: mini-program_project/login_imager/mobile_login.yml
+    extract:
+        - token_I: content.data.token
+        - imageWorkerId: content.data.profile.uid
+    variables:
+        code_I: $code_I
+        mobile: "15575541004"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 超级管理员 - 创建主材部经理
+    api: management_PC/role_management/user_create.yml
+    variables:
+        token_S: $token_S
+        name: "主材部经理KK"
+        mobile: "15575541005"
+        roleId:
+            - 21
+        password: "123456"
+        sex: 1
+        organizationIds:
+            - 1
+        accountAuth:
+            - "miniAppsWorker"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 主材部经理 - 发送短信
+    api: mini-program_project/login_main_manager/loginsms.yml
+    extract:
+        - code_A: content.data
+    variables:
+        mobile: "15575541005"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 主材部经理 - 小程序端登录
+    api: mini-program_project/login_main_manager/mobile_login.yml
+    extract:
+        - token_A: content.data.token
+    variables:
+        code_A: $code_A
+        mobile: "15575541005"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 超级管理员 - 创建报价师
+    api: management_PC/role_management/user_create.yml
+    variables:
+        token_S: $token_S
+        name: "报价师KK"
+        mobile: "15575541007"
+        roleId:
+            - 24
+        password: "123456"
+        sex: 1
+        organizationIds:
+            - 1
+        accountAuth:
+            - "pcManager"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 报价师登录
+    api: management_PC/login_PC/login_user.yml
+    variables:
+        mobile: "15575541007"
+        password: "123456"
+    extract:
+    -   token_D: content.data.token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 超级管理员 - 创建客户
+    api: management_PC/customer_management/customer_add.yml
+    variables:
+        token_S: $token_S
+        name: 客户KK
+        mobile: "15575541006"
+        sex: 1
+        address: TAM
+        areaCode:
+            - '11'
+            - '0103'
+            - '110103'
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 客户 - 发送短信
+    api: mini-program_customer/loginsms.yml
+    extract:
+        - code_C: content.data
+    variables:
+        mobile: "15575541006"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 客户 - 小程序端登录
+    api: mini-program_customer/mobile_login.yml
+    extract:
+        - token_C: content.data.token
+    variables:
+        code_C: $code_C
+        mobile: "15575541006"
+    validate:
+        - eq: ["status_code", 200]

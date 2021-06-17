@@ -14,8 +14,8 @@ request:
     # 指定json请求参数
    json:
       #角色登录
-      mobile: '15011885904'
-      identifier: '123456'
+      mobile: ${ENV(USERNAME_SUPER)}
+      identifier: ${ENV(PASSWORD_SUPER)}
 
 
 # 指定断言信息

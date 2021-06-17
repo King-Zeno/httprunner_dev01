@@ -1,0 +1,51 @@
+config:
+    name: "pm18744【PC-工程管理】创建的形象工登录报403"
+    output:
+        - token_I
+    base_url: ${ENV(base_url)}
+
+teststeps:
+-
+    name: 超级管理员登录
+    api: management_PC/login_PC/login.yml
+    extract:
+    -   token_S: content.data.token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 超级管理员 - 创建形象工
+    api: management_PC/role_management/user_create.yml
+    variables:
+        token_S: $token_S
+        name: "形象工KK"
+        mobile: "15575542004"
+        roleId:
+            - 22
+        password: "123456"
+        sex: 1
+        organizationIds:
+            - 1
+        accountAuth:
+            - "miniAppsWorker"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 形象工 - 发送短信
+    api: mini-program_project/login_imager/loginsms.yml
+    extract:
+        - code_I: content.data
+    variables:
+        mobile: "15575542004"
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 形象工 - 小程序端登录
+    api: mini-program_project/login_imager/mobile_login.yml
+    extract:
+        - token_I: content.data.token
+        - imageWorkerId: content.data.profile.uid
+    variables:
+        code_I: $code_I
+        mobile: "15575542004"
+    validate:
+        - eq: ["status_code", 200]

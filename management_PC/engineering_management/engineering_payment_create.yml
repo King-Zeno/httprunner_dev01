@@ -12,7 +12,7 @@ request:
       Content-Type: "application/json"
       Authorization: Baerer $token_D
    json:
-     money: 30.5
+     money: $money
 
 # 指定断言信息
 validate:

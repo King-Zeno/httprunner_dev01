@@ -1,0 +1,94 @@
+config:
+    name: "test1 - 待安排"
+    output:
+        - token_D
+        - token_E
+        - token_M
+        - token_I
+        - token_C
+        - schemeId
+        - projectId
+        - code_E
+        - code_M
+        - code_I
+        - code_C
+        - taskId
+    variables:
+        designerId: 135
+        clientId: 141
+        staffId: 1
+    base_url: ${ENV(base_url)}
+
+teststeps:
+-
+    name: 设计师登录
+    api: management_PC/design_management/login.yml
+    extract:
+    -   token_D: content.data.token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-设计方案-创建
+    api: management_PC/design_management/createScheme.yml
+    variables:
+        token_D: $token_D
+        proAddress: 测试1
+        clientId: $clientId
+        house:
+            houseType: 4
+            area: 90.52
+            city:
+                - 110101
+                - 110101
+            address: 兴文路
+            houses: 1
+            roomType: 2
+            contractStartDate: '2021-09-06'
+            contractEndDate: '2021-10-06'
+            contractDays: 30
+    extract:
+        - schemeId: content.data.schemeId
+        - projectId: content.data.id
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-工程收款-创建
+    api: management_PC/engineering_management/engineering_payment_create.yml
+    variables:
+        token_D: $token_D
+        money: 10000
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-设计方案-交接工程单
+    api: management_PC/design_management/handover_case.yml
+    variables:
+        token_D: $token_D
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 发送短信
+    api: mini-program_project/login_engineering/loginsms.yml
+    extract:
+        - code_E: content.data
+    variables:
+        mobile: ${ENV(USERNAME_ENG_MANAGER)}
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 小程序端登录
+    api: mini-program_project/login_engineering/mobile_login.yml
+    extract:
+        - token_E: content.data.token
+    variables:
+        code_E: $code_E
+        mobile: ${ENV(USERNAME_ENG_MANAGER)}
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 确认交接
+    api: mini-program_project/workspace/project_handover_ensure.yml
+    variables:
+        token_E: $token_E
+    validate:
+        - eq: ["status_code", 200]

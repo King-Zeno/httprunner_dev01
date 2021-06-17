@@ -14,20 +14,9 @@ request:
 
     # 指定json请求参数
    json:
-     proAddress: ksdd-0604-1
+     proAddress: $proAddress
      clientId: $clientId
-     house:
-       houseType: 4
-       area: 90.52
-       city:
-         - 110101
-         - 110101
-       address: 兴文路
-       houses: 1
-       roomType: 2
-       contractStartDate: '2021-09-06'
-       contractEndDate: '2021-10-06'
-       contractDays: 30
+     house: $house
      designerId: $designerId
 
 # 指定断言信息

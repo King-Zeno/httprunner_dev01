@@ -1,7 +1,5 @@
 # 指定当前用例的名称
 name: "用户管理 - 创建"
-variables:
-   id: 1
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
@@ -12,17 +10,15 @@ request:
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
-      Authorization: Baerer $token
+      Authorization: Baerer $token_S
    json:
-      name: dolore aute voluptate
-      mobile: '15774609393'
-      roleId: 3
-      password: '123456'
-      sex: 1
-      organizationId: 2
-      accountAuth:
-         - pcManager
-         - miniAppsWorker
+      name: $name
+      mobile: $mobile
+      roleIds: $roleId
+      password: $password
+      sex: $sex
+      organizationIds: $organizationIds
+      accountAuth: $accountAuth
 
 # 指定断言信息
 validate:
