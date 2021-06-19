@@ -14,9 +14,9 @@ config:
         - code_C
         - taskId
     variables:
-        designerId: 135
-        clientId: 141
-        staffId: 1
+        designerId: 182
+        clientId: 188
+        staffId: 179
     base_url: ${ENV(base_url)}
 
 teststeps:
@@ -41,7 +41,7 @@ teststeps:
                 - 110101
                 - 110101
             address: 兴文路
-            houses: 1
+            houses: 25
             roomType: 2
             contractStartDate: '2021-07-06'
             contractEndDate: '2021-10-06'

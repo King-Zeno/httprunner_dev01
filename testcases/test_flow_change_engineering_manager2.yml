@@ -1,5 +1,5 @@
 config:
-    name: "逆向流"
+    name: "更换工程部经理2"
     output:
         - token_D
         - token_E
@@ -15,9 +15,9 @@ config:
         - taskId
         - applyId_aux
     variables:
-        designerId: 135
-        clientId: 141
-        staffId: 1
+        designerId: 182
+        clientId: 188
+        staffId: 179
     base_url: ${ENV(base_url)}
 
 teststeps:
@@ -33,6 +33,20 @@ teststeps:
     api: management_PC/design_management/createScheme.yml
     variables:
         token_D: $token_D
+        proAddress: 更换工程部经理2
+        clientId: $clientId
+        house:
+            houseType: 4
+            area: 90.52
+            city:
+                - 110101
+                - 110101
+            address: 兴文路
+            houses: 25
+            roomType: 2
+            contractStartDate: '2021-07-06'
+            contractEndDate: '2021-10-06'
+            contractDays: 90
     extract:
         - schemeId: content.data.schemeId
         - projectId: content.data.id

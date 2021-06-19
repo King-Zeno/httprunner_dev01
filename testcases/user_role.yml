@@ -15,9 +15,9 @@ config:
         - taskId
         - dynamicId
     variables:
-        designerId: 199
-        clientId: 207
-        staffId: 1
+        designerId: 182
+        clientId: 188
+        staffId: 179
     base_url: ${ENV(base_url)}
 
 teststeps:

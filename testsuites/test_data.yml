@@ -1,0 +1,26 @@
+config:
+    name: "测试数据展示"
+    base_url: ${ENV(base_url)}
+
+testcases:
+-
+    name: 测试1
+    testcase: testcases/test1.yml
+-
+    name: 测试2
+    testcase: testcases/test2.yml
+-
+    name: 测试3
+    testcase: testcases/test3.yml
+-
+    name: 测试4
+    testcase: testcases/test4.yml
+-
+    name: 测试5
+    testcase: testcases/test5.yml
+-
+    name: 测试6
+    testcase: testcases/test6.yml
+-
+    name: 测试7
+    testcase: testcases/test7.yml

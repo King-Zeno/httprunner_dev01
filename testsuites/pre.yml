@@ -1,0 +1,18 @@
+config:
+    name: "预发布 测试"
+    base_url: ${ENV(base_url)}
+
+testcases:
+-
+    name: 正向流
+    testcase: testcases/test_flow.yml
+-
+    name: 逆向流
+    testcase: testcases/test_flow_r.yml
+-
+    name: pm-18744
+    testcase: testcases/pm-18744.yml
+-
+    name: pm-18750
+    testcase: testcases/pm-18750.yml
+
