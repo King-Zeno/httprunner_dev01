@@ -1,5 +1,5 @@
 config:
-    name: "更换工程部经理1"
+    name: "逆向流"
     output:
         - token_D
         - token_E
@@ -33,7 +33,7 @@ teststeps:
     api: management_PC/design_management/createScheme.yml
     variables:
         token_D: $token_D
-        proAddress: 更换工程部经理1
+        proAddress: 逆向流
         clientId: $clientId
         house:
             houseType: 4
@@ -94,6 +94,27 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
+    name: 工程部经理 - 驳回交接
+    api: mini-program_project/workspace/project_handover_reject.yml
+    variables:
+        token_E: $token_E
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-设计方案-重新编辑 - (新建项目、停工中 才允许编辑)
+    api: management_PC/design_management/editcase.yml
+    variables:
+        token_D: $token_D
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-设计方案-重新交接工程单
+    api: management_PC/design_management/handover_case.yml
+    variables:
+        token_D: $token_D
+    validate:
+        - eq: ["status_code", 200]
+-
     name: 工程部经理 - 确认交接
     api: mini-program_project/workspace/project_handover_ensure.yml
     variables:
@@ -101,38 +122,10 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理2 - 发送短信
-    api: mini-program_project/change_engineering_manager/loginsms.yml
-    extract:
-        - code_E2: content.data
-    variables:
-        mobile: ${ENV(USERNAME_ENG_MANAGER_2)}
-    validate:
-        - eq: ["status_code", 200]
--
-    name: 工程部经理2 - 小程序端登录
-    api: mini-program_project/change_engineering_manager/mobile_login.yml
-    extract:
-        - token_E2: content.data.token
-        - staffId_E: content.data.profile.uid
-    variables:
-        code_E2: $code_E2
-        mobile: ${ENV(USERNAME_ENG_MANAGER_2)}
-    validate:
-        - eq: ["status_code", 200]
--
-    name: 工程部经理 - 更换为工程部经理2
-    api: mini-program_project/change_engineering_manager/engineering_change_engneering_manager.yml
+    name: 工程部经理 - 安排项目经理 - 列表
+    api: mini-program_project/building_project/manager_list.yml
     variables:
         token_E: $token_E
-        staffId_E: $staffId_E
-    validate:
-        - eq: ["status_code", 200]
--
-    name: 工程部经理2 - 安排项目经理 - 列表
-    api: mini-program_project/change_engineering_manager/manager_list.yml
-    variables:
-        token_E2: $token_E2
     validate:
         - eq: ["status_code", 200]
 -
@@ -156,10 +149,10 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理2 - 安排项目经理 - 确认安排
-    api: mini-program_project/change_engineering_manager/arrange_manager.yml
+    name: 工程部经理 - 安排项目经理 - 确认安排
+    api: mini-program_project/building_project/arrange_manager.yml
     variables:
-        token_E2: $token_E2
+        token_E: $token_E
     validate:
         - eq: ["status_code", 200]
 -
@@ -232,10 +225,10 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理2 - 工地形象 - 驳回验收
-    api: mini-program_project/change_engineering_manager/workspace_image_reject.yml
+    name: 工程部经理 - 工地形象 - 驳回验收
+    api: mini-program_project/workspace/workspace_image_reject.yml
     variables:
-        token_E2: $token_E2
+        token_E: $token_E
     validate:
         - eq: ["status_code", 200]
 -
@@ -253,10 +246,10 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理2 - 工地形象 - 确认验收
-    api: mini-program_project/change_engineering_manager/workspace_image_acceptance.yml
+    name: 工程部经理 - 工地形象 - 确认验收
+    api: mini-program_project/workspace/workspace_image_acceptance.yml
     variables:
-        token_E2: $token_E2
+        token_E: $token_E
     validate:
         - eq: ["status_code", 200]
 -
@@ -455,9 +448,9 @@ teststeps:
             - name: 附件名称
               url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
         content:
-            - id: 1
-              name: 五金
-            - id: 2
+            - id: 30
+              name: 砖
+            - id: 29
               name: 水泥
     extract:
       - applyId_aux: content.data
@@ -523,25 +516,25 @@ teststeps:
         - eq: ["status_code", 200]
 -
     name: 主材部经理 - 通过主材申请
-    api: mini-program_project/workspace/workspace_schedule-applies_details_pass_main.yml
+    api: mini-program_project/workspace/workspace_schedule-applies_details_pass.yml
     variables:
-        token_A: $token_A
+        token_E: $token_A
         applyId: $applyId_main
         date: "2021-08-01"
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理2 - 工程审批列表
-    api: mini-program_project/change_engineering_manager/workspace_schedule-applies_list.yml
+    name: 工程部经理 - 工程审批列表
+    api: mini-program_project/workspace/workspace_schedule-applies_list.yml
     variables:
-        token_E2: $token_E2
+        token_E: $token_E
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理2 - 驳回辅材申请
-    api: mini-program_project/change_engineering_manager/workspace_schedule-applies_details_fail.yml
+    name: 工程部经理 - 驳回辅材申请
+    api: mini-program_project/workspace/workspace_schedule-applies_details_fail.yml
     variables:
-        token_E2: $token_E2
+        token_E: $token_E
         applyId: $applyId_aux
     validate:
         - eq: ["status_code", 200]
@@ -572,10 +565,10 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理2 - 通过辅材申请
-    api: mini-program_project/change_engineering_manager/workspace_schedule-applies_details_pass.yml
+    name: 工程部经理 - 通过辅材申请
+    api: mini-program_project/workspace/workspace_schedule-applies_details_pass.yml
     variables:
-        token_E2: $token_E2
+        token_E: $token_E
         applyId: $applyId_aux_2
         date: "2021-12-31"
     validate:
@@ -608,10 +601,10 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理2 - 通过延期申请
-    api: mini-program_project/change_engineering_manager/workspace_schedule-applies_details_pass.yml
+    name: 工程部经理 - 通过延期申请
+    api: mini-program_project/workspace/workspace_schedule-applies_details_pass.yml
     variables:
-        token_E2: $token_E2
+        token_E: $token_E
         applyId: $applyId_delay
         date: "2021-12-31"
     validate:
@@ -636,10 +629,10 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理2 - 通过停工申请
-    api: mini-program_project/change_engineering_manager/workspace_schedule-applies_details_pass.yml
+    name: 工程部经理 - 通过停工申请
+    api: mini-program_project/workspace/workspace_schedule-applies_details_pass.yml
     variables:
-        token_E2: $token_E2
+        token_E: $token_E
         applyId: $applyId_pause
         date: "2021-12-31"
     validate:
@@ -664,10 +657,10 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理2 - 通过复工申请
-    api: mini-program_project/change_engineering_manager/workspace_schedule-applies_details_pass.yml
+    name: 工程部经理 - 通过复工申请
+    api: mini-program_project/workspace/workspace_schedule-applies_details_pass.yml
     variables:
-        token_E2: $token_E2
+        token_E: $token_E
         applyId: $applyId_resume
         date: "2021-12-31"
     validate:
@@ -762,10 +755,10 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理2 - 获取工程验收 - 列表(阶段)
-    api: mini-program_project/change_engineering_manager/project_schedule-acceptance.yml
+    name: 工程部经理 - 获取工程验收 - 列表(阶段)
+    api: mini-program_project/building_project/project_schedule-acceptance.yml
     variables:
-        token_E2: $token_E2
+        token_E: $token_E
     extract:
         - aid_0: content.data.0.id
         - aid_1: content.data.1.id
@@ -776,58 +769,58 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理2 - 获取验收详情
-    api: mini-program_project/change_engineering_manager/workspace_acceptances_details.yml
+    name: 工程部经理 - 获取验收详情
+    api: mini-program_project/workspace/workspace_acceptances_details.yml
     variables:
-        token_E2: $token_E2
+        token_E: $token_E
         aid: $aid_0
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理2 - 通过验收申请0
-    api: mini-program_project/change_engineering_manager/workspace_acceptances_details_pass.yml
+    name: 工程部经理 - 通过验收申请0
+    api: mini-program_project/workspace/workspace_acceptances_details_pass.yml
     variables:
-        token_E2: $token_E2
+        token_E: $token_E
         aid: $aid_0
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理2 - 通过验收申请1
-    api: mini-program_project/change_engineering_manager/workspace_acceptances_details_pass.yml
+    name: 工程部经理 - 通过验收申请1
+    api: mini-program_project/workspace/workspace_acceptances_details_pass.yml
     variables:
-        token_E2: $token_E2
+        token_E: $token_E
         aid: $aid_1
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理2 - 通过验收申请2
-    api: mini-program_project/change_engineering_manager/workspace_acceptances_details_pass.yml
+    name: 工程部经理 - 通过验收申请2
+    api: mini-program_project/workspace/workspace_acceptances_details_pass.yml
     variables:
-        token_E2: $token_E2
+        token_E: $token_E
         aid: $aid_2
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理2 - 通过验收申请3
-    api: mini-program_project/change_engineering_manager/workspace_acceptances_details_pass.yml
+    name: 工程部经理 - 通过验收申请3
+    api: mini-program_project/workspace/workspace_acceptances_details_pass.yml
     variables:
-        token_E2: $token_E2
+        token_E: $token_E
         aid: $aid_3
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理2 - 通过验收申请4
-    api: mini-program_project/change_engineering_manager/workspace_acceptances_details_pass.yml
+    name: 工程部经理 - 通过验收申请4
+    api: mini-program_project/workspace/workspace_acceptances_details_pass.yml
     variables:
-        token_E2: $token_E2
+        token_E: $token_E
         aid: $aid_4
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理2 - 通过验收申请5
-    api: mini-program_project/change_engineering_manager/workspace_acceptances_details_pass.yml
+    name: 工程部经理 - 通过验收申请5
+    api: mini-program_project/workspace/workspace_acceptances_details_pass.yml
     variables:
-        token_E2: $token_E2
+        token_E: $token_E
         aid: $aid_5
     validate:
         - eq: ["status_code", 200]

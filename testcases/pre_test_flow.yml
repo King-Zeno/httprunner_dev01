@@ -14,8 +14,8 @@ config:
         - code_C
         - taskId
     variables:
-        designerId: 182
-        clientId: 188
+        designerId: 202
+        clientId: 206
         staffId: 179
     base_url: ${ENV(base_url)}
 

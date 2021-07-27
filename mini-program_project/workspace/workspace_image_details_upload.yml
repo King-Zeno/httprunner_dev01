@@ -15,8 +15,10 @@ request:
    json:
      images:
        - name: 现场照片
+         type: image
          url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
        - name: 现场照片
+         type: image
          url: 'http://www.woimg.com/shop/common/06053575113790320.jpg'
 
 # 指定断言信息

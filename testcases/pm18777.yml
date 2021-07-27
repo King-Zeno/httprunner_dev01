@@ -1,5 +1,5 @@
 config:
-    name: "test2 - 待接单"
+    name: "pm18777"
     output:
         - token_D
         - token_E
@@ -14,9 +14,9 @@ config:
         - code_C
         - taskId
     variables:
-        designerId: 202
-        clientId: 206
-        staffId: 214
+        designerId: 193
+        clientId: 199
+        staffId: 179
     base_url: ${ENV(base_url)}
 
 teststeps:
@@ -32,7 +32,7 @@ teststeps:
     api: management_PC/design_management/createScheme.yml
     variables:
         token_D: $token_D
-        proAddress: 测试2
+        proAddress: pm18777
         clientId: $clientId
         house:
             houseType: 4
@@ -43,9 +43,9 @@ teststeps:
             address: 兴文路
             houses: 25
             roomType: 2
-            contractStartDate: '2021-09-06'
-            contractEndDate: '2021-10-06'
-            contractDays: 30
+            contractStartDate: '2021-06-20'
+            contractEndDate: '2021-07-20'
+            contractDays: 31
     extract:
         - schemeId: content.data.schemeId
         - projectId: content.data.id
@@ -56,7 +56,7 @@ teststeps:
     api: management_PC/engineering_management/engineering_payment_create.yml
     variables:
         token_D: $token_D
-        money: 8000
+        money: 7000
     validate:
         - eq: ["status_code", 200]
 -
@@ -117,5 +117,89 @@ teststeps:
     api: mini-program_project/building_project/arrange_manager.yml
     variables:
         token_E: $token_E
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 确认接单
+    api: mini-program_project/building_project/project_manager_confirm.yml
+    variables:
+        token_M: $token_M
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 获取形象工列表
+    api: mini-program_project/workspace/workspace_image_worker_list.yml
+    variables:
+        token_M: $token_M
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 形象工 - 发送短信
+    api: mini-program_project/login_imager/loginsms.yml
+    extract:
+        - code_I: content.data
+    variables:
+        mobile: ${ENV(USERNAME_IMAGER)}
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 形象工 - 小程序端登录
+    api: mini-program_project/login_imager/mobile_login.yml
+    extract:
+        - token_I: content.data.token
+        - imageWorkerId: content.data.profile.uid
+    variables:
+        code_I: $code_I
+        mobile: ${ENV(USERNAME_IMAGER)}
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 确认安排形象工
+    api: mini-program_project/workspace/workspace_image_worker_choose.yml
+    variables:
+        token_M: $token_M
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 形象工 - 确认接单
+    api: mini-program_project/workspace/project_imager_confirm.yml
+    variables:
+        token_I: $token_I
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工地形象列表
+    api: mini-program_project/workspace/workspace_image_list.yml
+    variables:
+        token_I: $token_I
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工地形象详情
+    api: mini-program_project/workspace/workspace_image_list.yml
+    variables:
+        token_I: $token_I
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工地形象详情 - 确认完成上传
+    api: mini-program_project/workspace/workspace_image_details_upload.yml
+    variables:
+        token_I: $token_I
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 工程部经理 - 工地形象 - 确认验收
+    api: mini-program_project/workspace/workspace_image_acceptance.yml
+    variables:
+        token_E: $token_E
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 项目经理 - 确认开工日期
+    api: mini-program_project/building_project/project_start_time.yml
+    variables:
+        token_M: $token_M
+        startTime: "2021-06-20"
     validate:
         - eq: ["status_code", 200]

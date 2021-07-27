@@ -1,22 +1,16 @@
 # 指定当前用例的名称
-name: "工程详情 - 施工进度 - 详情 - 审批申请 ( 提交 )"
+name: "工程项目 - 阶段评价 - 评价详情"
 base_url: ${ENV(base_url)}
 # 指定接口的请求信息
 request:
     # 指定当前用例的url
-   url: /worker/project/$projectId/schedule/apply
+   url: /customer/project/$projectId/schedule-evaluation/$scheduleId
     # 指定当前接口的请求方式
-   method: POST
+   method: GET
     # 指定请求头参数
    headers:
       Content-Type: "application/json"
-      Authorization: Baerer $token_M
-   json:
-      scheduleId: $sid
-      type: $type #delay,auxiliaryMaterial,mainMaterial
-      desc: $desc
-      attachment: $attachment
-      content: $content
+      Authorization: Baerer $token_C
 
 # 指定断言信息
 validate:

@@ -14,9 +14,9 @@ config:
         - code_C
         - taskId
     variables:
-        designerId: 182
-        clientId: 188
-        staffId: 179
+        designerId: 202
+        clientId: 206
+        staffId: 214
     base_url: ${ENV(base_url)}
 
 teststeps:
@@ -728,6 +728,13 @@ teststeps:
 -
     name: 客户 -竣工结算单 - 详情
     api: mini-program_customer/project_settlement_details.yml
+    variables:
+        token_C: $token_C
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 客户 -工程项目 - 详情
+    api: mini-program_customer/project_details.yml
     variables:
         token_C: $token_C
     validate:

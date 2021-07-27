@@ -1,5 +1,5 @@
 config:
-    name: "test2 - 待接单"
+    name: "pm18749"
     output:
         - token_D
         - token_E
@@ -13,10 +13,11 @@ config:
         - code_I
         - code_C
         - taskId
+        - applyId_aux
     variables:
-        designerId: 202
-        clientId: 206
-        staffId: 214
+        designerId: 135
+        clientId: 141
+        staffId: 5
     base_url: ${ENV(base_url)}
 
 teststeps:
@@ -32,7 +33,7 @@ teststeps:
     api: management_PC/design_management/createScheme.yml
     variables:
         token_D: $token_D
-        proAddress: 测试2
+        proAddress: pm18749
         clientId: $clientId
         house:
             houseType: 4
@@ -41,14 +42,21 @@ teststeps:
                 - 110101
                 - 110101
             address: 兴文路
-            houses: 25
+            houses: 1
             roomType: 2
-            contractStartDate: '2021-09-06'
+            contractStartDate: '2021-07-06'
             contractEndDate: '2021-10-06'
-            contractDays: 30
+            contractDays: 90
     extract:
         - schemeId: content.data.schemeId
         - projectId: content.data.id
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 设计管理-主材清单-创建
+    api: management_PC/main-material/main-material_create.yml
+    variables:
+        token_D: $token_D
     validate:
         - eq: ["status_code", 200]
 -
@@ -56,7 +64,7 @@ teststeps:
     api: management_PC/engineering_management/engineering_payment_create.yml
     variables:
         token_D: $token_D
-        money: 8000
+        money: 80000
     validate:
         - eq: ["status_code", 200]
 -
@@ -93,29 +101,30 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: 项目经理 - 发送短信
-    api: mini-program_project/login_manager/loginsms.yml
+    name: 工程部经理2 - 发送短信
+    api: mini-program_project/change_engineering_manager/loginsms.yml
     extract:
-        - code_M: content.data
+        - code_E2: content.data
     variables:
-        mobile: ${ENV(USERNAME_MANAGER)}
+        mobile: ${ENV(USERNAME_ENG_MANAGER_2)}
     validate:
         - eq: ["status_code", 200]
 -
-    name: 项目经理 - 小程序端登录
-    api: mini-program_project/login_manager/mobile_login.yml
+    name: 工程部经理2 - 小程序端登录
+    api: mini-program_project/change_engineering_manager/mobile_login.yml
     extract:
-        - token_M: content.data.token
-        - projectManagerId: content.data.profile.uid
+        - token_E2: content.data.token
+        - staffId_E: content.data.profile.uid
     variables:
-        code_M: $code_M
-        mobile: ${ENV(USERNAME_MANAGER)}
+        code_E2: $code_E2
+        mobile: ${ENV(USERNAME_ENG_MANAGER_2)}
     validate:
         - eq: ["status_code", 200]
 -
-    name: 工程部经理 - 安排项目经理 - 确认安排
-    api: mini-program_project/building_project/arrange_manager.yml
+    name: 工程部经理 - 更换为工程部经理2
+    api: mini-program_project/change_engineering_manager/engineering_change_engneering_manager.yml
     variables:
         token_E: $token_E
+        staffId_E: $staffId_E
     validate:
         - eq: ["status_code", 200]

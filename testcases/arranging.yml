@@ -1,5 +1,5 @@
 config:
-    name: "test2 - 待接单"
+    name: "test1 - 待安排"
     output:
         - token_D
         - token_E
@@ -16,7 +16,7 @@ config:
     variables:
         designerId: 202
         clientId: 206
-        staffId: 214
+        staffId: 179
     base_url: ${ENV(base_url)}
 
 teststeps:
@@ -32,7 +32,7 @@ teststeps:
     api: management_PC/design_management/createScheme.yml
     variables:
         token_D: $token_D
-        proAddress: 测试2
+        proAddress: 待安排
         clientId: $clientId
         house:
             houseType: 4
@@ -56,7 +56,7 @@ teststeps:
     api: management_PC/engineering_management/engineering_payment_create.yml
     variables:
         token_D: $token_D
-        money: 8000
+        money: 10000
     validate:
         - eq: ["status_code", 200]
 -
@@ -88,33 +88,6 @@ teststeps:
 -
     name: 工程部经理 - 确认交接
     api: mini-program_project/workspace/project_handover_ensure.yml
-    variables:
-        token_E: $token_E
-    validate:
-        - eq: ["status_code", 200]
--
-    name: 项目经理 - 发送短信
-    api: mini-program_project/login_manager/loginsms.yml
-    extract:
-        - code_M: content.data
-    variables:
-        mobile: ${ENV(USERNAME_MANAGER)}
-    validate:
-        - eq: ["status_code", 200]
--
-    name: 项目经理 - 小程序端登录
-    api: mini-program_project/login_manager/mobile_login.yml
-    extract:
-        - token_M: content.data.token
-        - projectManagerId: content.data.profile.uid
-    variables:
-        code_M: $code_M
-        mobile: ${ENV(USERNAME_MANAGER)}
-    validate:
-        - eq: ["status_code", 200]
--
-    name: 工程部经理 - 安排项目经理 - 确认安排
-    api: mini-program_project/building_project/arrange_manager.yml
     variables:
         token_E: $token_E
     validate:

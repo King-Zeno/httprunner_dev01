@@ -1,0 +1,29 @@
+# 指定当前用例的名称
+name: "工程项目 - 阶段评价 - 提交评价"
+base_url: ${ENV(base_url)}
+# 指定接口的请求信息
+request:
+    # 指定当前用例的url
+   url: /customer/project/$projectId/schedule-evaluation/$scheduleId
+    # 指定当前接口的请求方式
+   method: POST
+    # 指定请求头参数
+   headers:
+      Content-Type: "application/json"
+      Authorization: Baerer $token_C
+   json:
+      #poor,general,good,great
+      lv: great
+      content: 安乐窝做的工程非常好，下次介绍朋友
+      items:
+         - key: 施工工艺
+           value: 5
+         - key: 施工工艺
+           value: 5
+         - key: 服务态度
+           value: 5
+
+# 指定断言信息
+validate:
+   - eq: ["status_code", 200]
+   - eq: ["json.code", 12000]
