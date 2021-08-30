@@ -16,7 +16,7 @@ config:
     variables:
         designerId: 202
         clientId: 206
-        staffId: 179
+        staffId: 214
     base_url: ${ENV(base_url)}
 
 teststeps:
